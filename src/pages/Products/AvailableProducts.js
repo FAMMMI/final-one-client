@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Product from './Product';
+import Purchase from './Purchase';
 
 const AvailableProducts = () => {
+    const [product, setProduct] = useState(null);
     const [availableProducts, setavailableProducts] = useState([]);
     useEffect(() => {
-        fetch("parts.json")
+        fetch("http://localhost:5000/product")
             .then(res => res.json())
             .then(data => setavailableProducts(data))
     }, []);
@@ -18,6 +20,15 @@ const AvailableProducts = () => {
                     ></Product>)
                 }
             </div>
+            {
+                product && <Purchase
+                    product={product}
+                    setProduct={setProduct}
+
+                ></Purchase>
+
+
+            }
         </div>
     );
 };

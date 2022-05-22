@@ -16,7 +16,7 @@ const Navbar = () => {
     const menuItem = <>
         <li><Link to="/about" > About</Link></li>
         <li><Link to="/products"> Products</Link></li>
-        <li><Link to="/contact"> Contact Us</Link></li>
+        <li><Link to="/myPortfolio"> My Protfolio</Link></li>
         <li><Link to="/review" >Review</Link></li>
         {
             user && <li><Link to="/dashboard" >Dashboard</Link></li>
