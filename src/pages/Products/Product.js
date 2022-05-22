@@ -23,7 +23,7 @@ const Product = ({ availableProduct }) => {
                 <p><b>Minimum Order Quantity:</b> {minimumQuantity}</p>
                 <p><b>Price:</b> ${price}</p>
                 <div class="card-actions">
-                    <Button onClick={() => gotoPurchase()}>Buy Now</Button>
+                    <button className="btn btn-primary text-white bg-gradient-to-r from-secondary to-primary" onClick={() => gotoPurchase()}>Buy Now</button>
                 </div>
             </div>
         </div>
