@@ -1,0 +1,65 @@
+[
+    {
+        "_id": 1,
+        "name": "M4 GP Series Slip-On Exhaust",
+        "img": "https://content.motosport.com/images/items/large/MPE/MPE000C/X001-Y001.jpg",
+        "description": "M4 Exhaust manufactures exhausts which add power and a more race-inspired sound to your bike as well as lowering the overall weight. Extra time on research and development ensures your exhaust has the ultimate in quality workmanship, ease of installation, and the best performance possible for your motorcycle. ",
+        "minimumQuantity": 20,
+        "quantity": 100,
+        "price": 25100
+    },
+    {
+        "_id": 2,
+        "name": "Arrowhead Starter Motor",
+        "img": "https://cdn2.louis.de/dynamic/articles/o_resize,w_1800,h_1800,m_limit,c_fff/5e.f5.99.H1MatthiesAnlasserArrowheadJMPDucati1003936388020.JPG",
+        "description": "Arrowhead Electrical Products, Inc. is a global distributor of rotating electrical parts and their components. They have been proudly serving customers for over 45 years, and their mission is to sell high quality products at great prices while providing exceptional customer service!",
+        "minimumQuantity": 40,
+        "quantity": 170,
+        "price": 4182
+    },
+    {
+        "_id": 3,
+        "name": "Avon Tire 3D Ultra EVO Tire Combo",
+        "img": "https://content.motosport.com/images/items/large/AVN/AVN1WU9/X001.jpg",
+        "description": "The 3D Ultra Evo has been developed specifically for hypersport bikes.  Generates additional grip and feedback.Delivers precise handling on road and on track.Produces consistent, all-round grip.",
+        "minimumQuantity": 20,
+        "quantity": 120,
+        "price": 27425
+    },
+    {
+        "_id": 4,
+        "name": "Race Tech Shock Spring",
+        "img": "https://content.motosport.com/images/items/large/RAH/RAH1WU1/X001.jpg",
+        "description": "The first step to great handling is selecting proper spring rates front and rear.Through years of testing and manufacturing experience, Race Tech has developed a full line of Hi-Performance Springs using the finest materials and processes. ",
+        "minimumQuantity": 20,
+        "quantity": 90,
+        "price": 13944
+    },
+    {
+        "_id": 5,
+        "name": "Turner Performance Products Rear Chain Guide",
+        "img": "https://content.motosport.com/images/items/large/TNP/TNP000Z/X002.jpg",
+        "description": "Let the Turner Performance Products Rear Chain Guide keep your chain inline and help protect it from damage.Made from CNC-machined 6061 T6 aluminum.Quality anodized for durability and good looks.Hardware included.",
+        "minimumQuantity": 50,
+        "quantity": 150,
+        "price": 3717
+    },
+    {
+        "_id": 6,
+        "name": "JD Jetting Keihin PWK Carburetor",
+        "img": "https://content.motosport.com/images/items/large/JDJ/JDJ000B/X001-Y004.jpg",
+        "description": "Replace your small stock carburetor with this Keihin for improved performance!Designed for 2-stroke applications ONLY.JD Jetting Kit included.The carb also includes extra main jets and both the red and blue JD needles.This is a GREAT deal, considering competitive carbs at a cost of twice as much or more!",
+        "minimumQuantity": 20,
+        "quantity": 200,
+        "price": 34160
+    },
+    {
+        "_id": 6,
+        "name": "JD Jetting Keihin PWK Carburetor",
+        "img": "https://content.motosport.com/images/items/large/JDJ/JDJ000B/X001-Y004.jpg",
+        "description": "Replace your small stock carburetor with this Keihin for improved performance!Designed for 2-stroke applications ONLY.JD Jetting Kit included.The carb also includes extra main jets and both the red and blue JD needles.This is a GREAT deal, considering competitive carbs at a cost of twice as much or more!",
+        "minimumQuantity": 20,
+        "quantity": 200,
+        "price": 34160
+    }
+]
