@@ -26,7 +26,6 @@ const ManageIndividualProduct = (props) => {
             </td>
             <td>{name}</td>
             <td>{price}</td>
-            <td>{description}</td>
             <td>{quantity}</td>
             <td>{minimumQuantity}</td>
             <td><button className='btn btn-primary text-white' variant="primary" onClick={() => goTo()}>

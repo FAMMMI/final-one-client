@@ -78,6 +78,7 @@ const Purchase = () => {
             price: item[0]?.price,
             totalPrice: parseInt(parseInt(newQuantity) * parseInt(item[0]?.price)),
             quantity: newQuantity,
+            minimumQuantity: item[0].minimumQuantity,
             img: item[0].img,
             status: 'Pending',
             paid: false
@@ -87,6 +88,7 @@ const Purchase = () => {
             name: item[0]?.name,
             description: item[0]?.description,
             price: item[0]?.price,
+            minimumQuantity: item[0].minimumQuantity,
             quantity: parseInt(prevQuantity - newQuantity),
             img: item[0].img,
         }

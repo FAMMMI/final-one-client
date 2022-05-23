@@ -29,7 +29,6 @@ const ManageProducts = () => {
                             <th>Avatar</th>
                             <th>Name</th>
                             <th>Price</th>
-                            <th>Description</th>
                             <th>Quantity</th>
                             <th>Minimum Quantity</th>
                             <th>Update</th>

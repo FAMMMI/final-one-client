@@ -19,6 +19,8 @@ import MyPortfolio from './pages/MyPortfolio/MyPortfolio';
 import AddProducts from './pages/Dashboard/AddProduct';
 import AllOrders from './pages/Dashboard/AllOrders';
 import ManageProducts from './pages/Dashboard/ManageProducts';
+import UpdateProduct from './pages/Dashboard/UpdateProduct';
+import Users from './pages/Dashboard/Users';
 
 function App() {
   return (
@@ -32,9 +34,11 @@ function App() {
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/signup' element={<Signup></Signup>}></Route>
         <Route path='/products' element={<Products></Products>}></Route>
+        <Route path='/updateProduct/:id' element={<UpdateProduct></UpdateProduct>}></Route>
         <Route path='/purchase/:id' element={<RequireAuth>
           <Purchase></Purchase>
         </RequireAuth>}></Route>
+
         <Route path='/dashboard' element={<RequireAuth>
           <Dashboard></Dashboard>
         </RequireAuth>}>
@@ -44,6 +48,7 @@ function App() {
           <Route path='allOrders' element={<AllOrders></AllOrders>}></Route>
           <Route path='addProduct' element={<AddProducts></AddProducts>}></Route>
           <Route path='manageProducts' element={<ManageProducts></ManageProducts>}></Route>
+          <Route path='users' element={<Users></Users>}></Route>
 
         </Route>
 
