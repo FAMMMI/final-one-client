@@ -1,80 +1,256 @@
-import React from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { toast } from 'react-toastify';
-import auth from '../../firebase.init';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
-const Purchase = ({ product, setProduct }) => {
-    const { _id, name, price, img, description, minimumQuantity, quantity } = product;
+import { useForm } from 'react-hook-form';
+
+
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import Loading from '../Shared/Loading';
+import { useQuery } from 'react-query';
+
+
+const Purchase = () => {
+    const { id } = useParams();
     const [user] = useAuthState(auth);
-    const handlePurchase = event => {
-        event.preventDefault();
-        const slot = event.target.slot.value;
-        console.log(_id, name, slot);
-        const booking = {
-            productId: _id,
-            product: name,
-            minimumQuantity,
-            quantity,
-            price: price * quantity,
-            patient: user.email,
-            patientName: user.displayName,
-            phone: event.target.phone.value
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
+
+    const [newUser, setNewUser] = useState([]);
+    useEffect(() => {
+        fetch(`http://localhost:5000/users?email=${user?.email}`, {
+            method: 'GET',
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => setNewUser(data))
+    }, [user]);
+
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        fetch(`http://localhost:5000/products?&id=${id}`, {
+            method: 'GET',
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => setProducts(data))
+    }, [])
+    // console.log(products);
+    const url = `http://localhost:5000/products?&id=${id}`;
+    const { data: item, isLoading } = useQuery(['products', id], () => fetch(url, {
+        method: 'GET',
+        headers: {
+            'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }).then(res => res.json()));
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
+    const onSubmit = async data => {
+        console.log(data);
+
+        const prevQuantity = parseInt(item[0]?.quantity);
+        const newQuantity = parseInt(data.quantity);
+
+        if (data.quantity === '' || data.quantity === undefined) {
+            return toast.error('Empty Quantity');
         }
 
-        fetch('http://localhost:5000/product', {
+        console.log(prevQuantity, newQuantity);
+
+        if (newQuantity > prevQuantity) {
+            return toast.error('Quantity Excedded');
+        }
+
+        const product = {
+            userName: data.userName,
+            phone: data.phone,
+            address: data.address,
+            name: item[0]?.name,
+            email: user?.email,
+            description: item[0]?.description,
+            price: item[0]?.price,
+            totalPrice: parseInt(parseInt(newQuantity) * parseInt(item[0]?.price)),
+            quantity: newQuantity,
+            img: item[0].img,
+            status: 'Pending',
+            paid: false
+        }
+
+        const oldProduct = {
+            name: item[0]?.name,
+            description: item[0]?.description,
+            price: item[0]?.price,
+            quantity: parseInt(prevQuantity - newQuantity),
+            img: item[0].img,
+        }
+
+        fetch(`http://localhost:5000/orders`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                "Accept": "application/json"
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
             },
-            body: JSON.stringify(booking)
-
+            body: JSON.stringify(product)
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                if (data.success) {
-                    toast(`Appointment is set `)
-                }
+                toast.success('Order Placed');
+            });
 
-                setProduct(null);
-            })
-        setProduct(null);
+        fetch(`http://localhost:5000/products/${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(oldProduct)
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success(`${product[0]?.name} have been updated`)
+            });
+        reset();
     }
+
     return (
         <div>
-            <div class="hero min-h-screen bg-base-200">
-                <div class="hero-content flex-col lg:flex-row-reverse">
-                    <div class="text-center lg:text-left">
-                        <h1 class="text-5xl font-bold">Login now!</h1>
-                        <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                    </div>
-                    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                        <div onSubmit={handlePurchase} class="card-body">
-                            <div class="form-control">
-                                <label class="label">
-                                    <span class="label-text">Email</span>
-                                </label>
-                                <input type="text" placeholder="email" class="input input-bordered" />
-                            </div>
-                            <div class="form-control">
-                                <label class="label">
-                                    <span class="label-text">Password</span>
-                                </label>
-                                <input type="text" placeholder="password" class="input input-bordered" />
-                                <label class="label">
-                                    <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
-                                </label>
-                            </div>
-                            <div class="form-control mt-6">
-                                <button class="btn btn-primary">Login</button>
-                            </div>
+            <div>
+                <div style={{ margin: "0 0 1050px 0" }} class="">
+                    <div class="">
+                        {/* <div class="left-add">
+                            <div class="login">Purchase {item.name}</div>
+                            <img src={addImg} className='img-fluid' alt="" />
+                        </div> */}
+
+                        <div class="">
+                            <form onSubmit={handleSubmit(onSubmit)}>
+
+                                <div className="input-group w-75 mx-auto">
+                                    <label className="label">
+                                        <span className="label-text">Customer's Name</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={user?.displayName} readOnly
+                                        placeholder="Your Name"
+                                        className="input input-bordered w-full max-w-xs"
+                                        {...register("userName")}
+                                    />
+                                </div>
+
+                                <div className="input-group w-75 mx-auto">
+                                    <label className="label">
+                                        <span className="label-text">Customer's Email</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={user?.email} readOnly
+                                        placeholder="Your Email"
+                                        className="input input-bordered w-full max-w-xs"
+                                        {...register("email")}
+                                    />
+                                </div>
+
+                                <div className="input-group w-75 mx-auto">
+                                    <label className="label">
+                                        <span className="label-text">Customer's Phone Number</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={newUser[0]?.phone}
+                                        placeholder="Your Phone Number"
+                                        className="input input-bordered w-full max-w-xs"
+                                        {...register("phone")}
+                                    />
+                                </div>
+
+                                <div className="input-group w-75 mx-auto">
+                                    <label className="label">
+                                        <span className="label-text">Customer's Address</span>
+                                    </label>
+                                    <textarea
+                                        type="text"
+                                        placeholder="Your Address"
+                                        className="input input-bordered w-full max-w-xs"
+                                        {...register("address")}
+                                    />
+                                </div>
+
+                                <div className="input-group w-75 mx-auto">
+                                    <label className="label">
+                                        <span className="label-text">Product Name</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={item[0]?.name} readOnly
+                                        placeholder="Product Name"
+                                        className="input input-bordered w-full max-w-xs"
+                                        {...register("name")}
+                                    />
+                                </div>
+
+                                <div className="input-group w-75 mx-auto">
+                                    <label className="label">
+                                        <span className="label-text">Price Per Unit $</span>
+                                    </label>
+                                    <input
+                                        type="number"
+                                        placeholder="Product Price"
+                                        value={item[0]?.price} readOnly
+                                        className="input input-bordered w-full max-w-xs"
+                                        {...register("price")}
+                                    />
+                                </div>
+
+                                <div className="input-group w-75 mx-auto">
+                                    <label className="label">
+                                        <span className="label-text">Stored Quantity</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        placeholder="Product Quantity"
+                                        value={item[0]?.quantity} readOnly
+                                        className="input input-bordered w-full max-w-xs"
+                                        {...register("prevQuantity")}
+                                    />
+                                </div>
+
+                                <div className="input-group w-75 mx-auto">
+                                    <label className="label">
+                                        <span className="label-text">Quantity you want</span>
+                                    </label>
+                                    <input
+                                        type="number"
+                                        placeholder="Product Quantity"
+                                        min={1}
+                                        className="input input-bordered w-full max-w-xs"
+                                        {...register("quantity")}
+                                    />
+                                    <label className="label">
+                                        {errors.quantity?.type === 'required' && <span className="label-text-alt text-red-500">{errors.prevQuantity.message}</span>}
+                                    </label>
+                                </div>
+
+                                {/* <Elements className='w-75' stripe={stripePromise}>
+                                    <CheckoutForm item={item[0]} />
+                                </Elements> */}
+
+                                <input className='form-submit button-33 w-50 mx-auto mt-4' type="submit" value="Add" />
+                            </form>
                         </div>
                     </div>
+                    <ToastContainer />
                 </div>
             </div>
         </div>
     );
 };
-
 export default Purchase;

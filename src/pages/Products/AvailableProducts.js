@@ -6,7 +6,12 @@ const AvailableProducts = () => {
     const [product, setProduct] = useState(null);
     const [availableProducts, setavailableProducts] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:5000/product")
+        fetch("http://localhost:5000/products", {
+            method: 'GET',
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
             .then(res => res.json())
             .then(data => setavailableProducts(data))
     }, []);
@@ -17,18 +22,10 @@ const AvailableProducts = () => {
                     availableProducts.map(availableProduct => <Product
                         key={availableProduct._id}
                         availableProduct={availableProduct}
+                        setProduct={setProduct}
                     ></Product>)
                 }
             </div>
-            {
-                product && <Purchase
-                    product={product}
-                    setProduct={setProduct}
-
-                ></Purchase>
-
-
-            }
         </div>
     );
 };

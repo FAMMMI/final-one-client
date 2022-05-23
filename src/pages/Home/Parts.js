@@ -4,7 +4,13 @@ import PartsInfo from './PartsInfo';
 const Parts = () => {
     const [parts, setParts] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:5000/product")
+        fetch("http://localhost:5000/products", {
+            method: 'GET',
+            headers: {
+
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
             .then(res => res.json())
             .then(data => setParts(data))
     }, []);
