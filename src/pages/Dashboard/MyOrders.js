@@ -37,7 +37,8 @@ const MyOrders = () => {
                             products.map((product, index) => <SingleProduct key={product._id}
                                 index={index}
                                 product={product} products={products} setProducts={setProducts}
-                                setdeleteOrder={setdeleteOrder}></SingleProduct>)
+                                setdeleteOrder={setdeleteOrder}>
+                            </SingleProduct>)
                         }
                     </tbody>
                 </table>
