@@ -125,12 +125,9 @@ const Purchase = () => {
     return (
         <div>
             <div>
-                <div style={{ margin: "0 0 1050px 0" }} class="">
+                <div class="">
                     <div class="">
-                        {/* <div class="left-add">
-                            <div class="login">Purchase {item.name}</div>
-                            <img src={addImg} className='img-fluid' alt="" />
-                        </div> */}
+
 
                         <div class="">
                             <form onSubmit={handleSubmit(onSubmit)}>
@@ -241,15 +238,12 @@ const Purchase = () => {
                                     </label>
                                 </div>
 
-                                {/* <Elements className='w-75' stripe={stripePromise}>
-                                    <CheckoutForm item={item[0]} />
-                                </Elements> */}
 
-                                <input className='form-submit button-33 w-50 mx-auto mt-4' type="submit" value="Add" />
+                                <input className='btn btn-secondary' type="submit" value="Add" />
                             </form>
+                            <ToastContainer></ToastContainer>
                         </div>
                     </div>
-                    <ToastContainer />
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import auth from '../../firebase.init'
 import { useAuthState, useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
@@ -8,6 +8,11 @@ import { ToastContainer, toast } from 'react-toastify';
 // import useToken from '../../hooks/useToken';
 
 const Login = () => {
+    const emailRef = useRef("");
+    const passwordRef = useRef("");
+    const [email, setEmail] = useState('');
+    const [student, setStudent] = useState([]);
+
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [
@@ -18,7 +23,25 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
     const [user1, password] = useAuthState(auth);
 
+
+    const eventSetEmail = (event) => {
+        setEmail(event.target.value);
+    }
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/users?email=${user?.email}`, {
+            method: 'GET',
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setStudent(data)
+            })
+    }, [user])
 
     let signInErrorMessage;
     const navigate = useNavigate();
@@ -54,7 +77,7 @@ const Login = () => {
         }
     };
 
-    const onSubmit = async data => {
+    const onSubmit = async (data) => {
 
         console.log(data);
         await signInWithEmailAndPassword(data.email, data.password);

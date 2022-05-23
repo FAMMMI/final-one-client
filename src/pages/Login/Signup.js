@@ -1,132 +1,160 @@
-import React, { useState } from 'react';
-import auth from '../../firebase.init'
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
-import { useForm } from "react-hook-form";
-import Loading from '../Shared/Loading'
-import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import React, { useRef, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import useToken from '../../hooks/useToken'
+import { format } from 'date-fns';
+import auth from '../../firebase.init';
+import Loading from '../Shared/Loading';
+import { toast } from 'react-toastify';
 
 const Signup = () => {
-    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const [
-        createUserWithEmailAndPassword,
-        user,
-        loading,
-        error,
-    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
-    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    let errorMsg;
+    const nameRef = useRef("");
+    const userIdRef = useRef("");
+    const fatherRef = useRef("");
+    const motherRef = useRef("");
+    const classNameRef = useRef("");
+    const emailRef = useRef("");
+    const passwordRef = useRef("");
+    const confirmPasswordRef = useRef("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [agree, setAgree] = useState(false);
+    const [date, setDate] = useState(new Date());
+    const formattedDate = format(date, 'PP');
+
+    let myArray = formattedDate.split(' ');
+    console.log(myArray);
+
+    let newYear = parseInt(myArray[2]);
+
+    const [createUserWithEmailAndPassword, user, loading, error] =
+        useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+    const [updateProfile, updating] = useUpdateProfile(auth);
+    const [email, setEmail] = useState("");
+
+    const [token] = useToken(user);
+
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
-    let signInErrorMessage;
+    const checkAgree = () => {
+        if (agree === false) setAgree(true);
+        else setAgree(false);
+    }
 
-    if (loading || gLoading) {
+    if (loading || updating) {
         return <Loading></Loading>
     }
 
-    if (error || gError || updateError) {
-        signInErrorMessage = <p className='text-red-500 text-sm'>{error?.message || gError?.message} || {updateError?.message}</p>
+    if (token) {
+        navigate(from, { replace: true });
     }
 
-    if (user || gUser) {
-        // console.log(user || gUser);
-        navigate('/');
+    const eventSubmit = async (event) => {
+        event.preventDefault();
+
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const address = event.target.address.value;
+        const phone = event.target.phone.value;
+        const password = event.target.password.value;
+        const confirmPassword = event.target.confirmPassword.value;
+
+        setErrorMessage("");
+
+        if (password !== confirmPassword) {
+            toast('Passwords do not match');
+            return;
+        }
+
+        const newUser = {
+            name: name,
+            email: email,
+            address: address,
+            phone: phone,
+            password: password
+        }
+
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    toast(`${name} you have been registered`)
+                }
+                else {
+                    toast.error(`User already exist`);
+                }
+            });
+
+        console.log(name, email, password, phone, address);
+        if (agree) {
+            await createUserWithEmailAndPassword(email, password);
+            await updateProfile({ displayName: name });
+        }
+        else {
+            setErrorMessage('Please Agree Terms & Conditions');
+        }
+    };
+
+    if (error) {
+        errorMsg = <p>{error?.message}</p>;
     }
-
-    const onSubmit = async data => {
-
-        await createUserWithEmailAndPassword(data.email, data.password);
-        await updateProfile({ displayName: data.name });
-        console.log('updated')
-
-    }
-
-
     return (
-        <div className='flex items-center h-screen justify-center'>
-            <div className="card lg:max-w-lg bg-base-100 shadow-xl">
-                <div className="card-body">
-                    <h2 className="text-center text-2xl font-bold">Sign Up</h2>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="form-control w-full max-w-xs">
-                            <label className="label">
-                                <span className="label-text">Name</span>
+        <div>
+            <h2>Sign UP</h2>
+            <div class="hero min-h-screen bg-base-200">
+                <div class="hero-content flex-col lg:flex-row-reverse">
+                    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                        <form onSubmit={eventSubmit} class="card-body">
+                            <div className="input-group form-control">
+                                <label className='label' htmlFor='name'>Name</label>
+                                <input className='input input-bordered' type="name" name="name" required />
+                            </div>
+                            <div className="input-group form-control">
+                                <label className='label' htmlFor='email'>Email</label>
+                                <input className='input input-bordered' type="email" name="email" required />
+                            </div>
+                            <div className="input-group form-control">
+                                <label className='label' htmlFor='address'>Address</label>
+                                <textarea className='input input-bordered' type="text" name="address" required />
+                            </div>
+                            <div className="input-group form-control">
+                                <label className='label' htmlFor='phone'>Contact Number</label>
+                                <input className='input input-bordered' type="number" name="phone" required />
+                            </div>
+                            <div className="input-group form-control">
+                                <label className='label' htmlFor='password'>Password</label>
+                                <input className='input input-bordered' type="password" name="password" />
+                            </div>
+                            <div className="input-group form-control">
+                                <label className='label' htmlFor='confirmPassword'>Confirm Password</label>
+                                <input className='input input-bordered' type="password" name="confirmPassword" required />
+                            </div>
+                            <input onClick={checkAgree} className='mb-3' type="checkbox" name="terms" id="" />
+                            <label className={`ps-2 ${agree ? 'text-success' : 'text-danger'}`} htmlFor='terms'>Accepct terms and conditions</label>
+                            <input className='btn btn-primary' type="submit" required value="Signup" />
+                            <p className='my-3 fs-5 d-flex'>
+                                Already have an account? <Link className='form-link' to='/login'>Login</Link>
+                            </p>
+                        </form>
+                        <h6 className="text-danger my-3"> {errorMsg}</h6>
+                        <h6 className="text-danger my-3"> {errorMessage}</h6>
 
-                            </label>
-                            <input {...register("name", {
-                                required: {
-                                    value: true,
-                                    message: 'Name is required'
-
-                                }
-                            })} type="text" placeholder="Your Name" className="input input-bordered w-full max-w-xs" />
-                            <label className="label">
-                                {errors.name?.type === 'required' && <span className="label-text-alt text-red-500">{errors.name.message}</span>}
-
-
-
-                            </label>
-                        </div>
-                        <div className="form-control w-full max-w-xs">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-
-                            </label>
-                            <input {...register("email", {
-                                required: {
-                                    value: true,
-                                    message: 'Email is required'
-
-                                },
-                                pattern: {
-                                    value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                                    message: 'Provide a valid email.'
-                                }
-                            })} type="email" placeholder="Your Email" className="input input-bordered w-full max-w-xs" />
-                            <label className="label">
-                                {errors.email?.type === 'required' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
-                                {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
-
-
-                            </label>
-                        </div>
-                        <div className="form-control w-full max-w-xs">
-                            <label className="label">
-                                <span className="label-text">Password</span>
-
-                            </label>
-                            <input {...register("password", {
-                                required: {
-                                    value: true,
-                                    message: 'Password is required'
-
-                                },
-                                minLength: {
-                                    value: 6,
-                                    message: 'Provide a strong password.'
-                                }
-                            })} type="password" placeholder="Your password" className="input input-bordered w-full max-w-xs" />
-                            <label className="label">
-                                {errors.password?.type === 'required' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
-                                {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
-
-
-                            </label>
-                        </div>
-                        {signInErrorMessage}
-                        <input className='btn w-full max-w-xs text-white' type="submit" value='Sign Up' />
-                    </form>
-                    <p><small>Already have an account? <Link className='text-secondary' to="/login">Please Login</Link></small></p>
-                    <div className="divider">OR</div>
-                    <button
-                        className="btn btn-outline"
-                        onClick={() => signInWithGoogle()}>Continue With Google</button>
+                    </div>
                 </div>
-                <ToastContainer />
             </div>
         </div>
     );
 };
 
 export default Signup;
+
+

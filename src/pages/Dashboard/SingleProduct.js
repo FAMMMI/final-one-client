@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 const SingleProduct = (props) => {
@@ -41,11 +42,11 @@ const SingleProduct = (props) => {
             </td>
             <td>
                 {
-                    !paid ? <h4 className='card__title'>Payment: <span className='text-danger'>Pending</span></h4>
+                    !paid ? <Link to={`/dashboard/payment/${props.product._id}`}><button className='btn btn-xs btn-success text-white'>Pay</button></Link>
                         : <h4 className='card__title'>Payment: <span className='text-success'>Paid</span></h4>
                 }
                 {
-                    status === 'Pending' ? <h4 className='card__title'>Status: <span className='text-danger'>{status}</span></h4>
+                    paid && status === 'Pending' ? <h4 className='card__title'>Status: <span className='text-danger'>{status}</span></h4>
                         : <h4 className='card__title'>Status: <span className='text-success'>{status}</span></h4>
                 }
             </td>

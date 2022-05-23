@@ -7,7 +7,6 @@ import Footer from './pages/Shared/Footer';
 import NotFound from './pages/Shared/NotFound';
 import Login from './pages/Login/Login';
 import Signup from './pages/Login/Signup';
-import Parts from './pages/Home/Parts';
 import Products from './pages/Products/Products';
 import RequireAuth from './pages/Login/RequireAuth';
 import Purchase from './pages/Products/Purchase';
@@ -21,6 +20,9 @@ import AllOrders from './pages/Dashboard/AllOrders';
 import ManageProducts from './pages/Dashboard/ManageProducts';
 import UpdateProduct from './pages/Dashboard/UpdateProduct';
 import Users from './pages/Dashboard/Users';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Payment from './pages/Dashboard/Payment';
 
 function App() {
   return (
@@ -46,6 +48,7 @@ function App() {
           <Route path='review' element={<MyReviews></MyReviews>}></Route>
           <Route path='profile' element={<MyProfile></MyProfile>}></Route>
           <Route path='allOrders' element={<AllOrders></AllOrders>}></Route>
+          <Route path='payment/:id' element={<Payment></Payment>}></Route>
           <Route path='addProduct' element={<AddProducts></AddProducts>}></Route>
           <Route path='manageProducts' element={<ManageProducts></ManageProducts>}></Route>
           <Route path='users' element={<Users></Users>}></Route>
@@ -55,6 +58,7 @@ function App() {
         <Route path='*' element={<NotFound></NotFound>}></Route>
       </Routes>
       <Footer></Footer>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }
