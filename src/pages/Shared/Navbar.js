@@ -4,6 +4,7 @@ import { signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
+import CustomLink from './CustomLink';
 
 const Navbar = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -14,14 +15,14 @@ const Navbar = () => {
     };
 
     const menuItem = <>
-        <li><Link to="/about" > About</Link></li>
-        <li><Link to="/products"> Products</Link></li>
-        <li><Link to="/myPortfolio"> My Protfolio</Link></li>
-        <li><Link to="/review" >Review</Link></li>
+        <li><CustomLink to="/about" > About</CustomLink></li>
+        <li><CustomLink to="/products"> Products</CustomLink></li>
+        <li><CustomLink to="/myPortfolio"> My Protfolio</CustomLink></li>
+        <li><CustomLink to="/review" >Review</CustomLink></li>
         {
-            user && <li><Link to="/dashboard" >Dashboard</Link></li>
+            user && <li><CustomLink to="/dashboard" >Dashboard</CustomLink></li>
         }
-        <li>{user ? <button className='btn btn-ghost' onClick={logout}>Sign Out</button> : <Link to="/login" >Login</Link>}</li>
+        <li>{user ? <button className='btn btn-ghost' onClick={logout}>Sign Out</button> : <CustomLink to="/login" >Login</CustomLink>}</li>
     </>
     return (
         <div className="navbar bg-base-100">

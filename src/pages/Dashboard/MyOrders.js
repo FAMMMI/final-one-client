@@ -20,7 +20,7 @@ const MyOrders = () => {
     return (
         <div className='row row-cols-1 row-cols-md-2 row-cols-lg-3'>
             <div class="overflow-x-auto">
-                <table class="table w-full">
+                <table class="table table-zebra w-full">
                     <thead>
                         <tr>
                             <th></th>

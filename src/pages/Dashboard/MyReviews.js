@@ -7,7 +7,7 @@ const MyReviews = () => {
     return (
         <div onSubmit={handleReviewSubmit}>
             <h2 className='text-accent text-3xl font-bold uppercase'>Give a rating</h2>
-            <div class="rating rating-lg rating-half">
+            <div class="rating rating-md rating-half">
                 <input type="radio" name="rating-10" class="rating-hidden" />
                 <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" />
                 <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" />

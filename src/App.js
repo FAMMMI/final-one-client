@@ -27,7 +27,7 @@ import RequireAdmin from './pages/Login/RequireAdmin';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App  bg-yellow-50	">
       <Navbar></Navbar>
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
