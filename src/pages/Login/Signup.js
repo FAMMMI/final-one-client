@@ -7,6 +7,8 @@ import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 import { toast } from 'react-toastify';
 
+
+
 const Signup = () => {
 
     let errorMsg;

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-// import useToken from '../../hooks/useToken';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
     const emailRef = useRef("");
@@ -21,12 +21,11 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
-    const [user1, password] = useAuthState(auth);
+
+    const [token] = useToken(user || gUser);
 
 
-    const eventSetEmail = (event) => {
-        setEmail(event.target.value);
-    }
+
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
     useEffect(() => {
@@ -48,14 +47,12 @@ const Login = () => {
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";
 
-    useEffect(() => {
-        if (user || gUser) {
-            console.log(user || gUser);
-            navigate(from, { replace: true });
+    if (token) {
+        console.log(user || gUser);
+        navigate(from, { replace: true });
+    }
 
 
-        }
-    }, [user, gUser, from, navigate])
 
     if (loading || gLoading) {
         return <Loading></Loading>
@@ -67,8 +64,8 @@ const Login = () => {
 
     const resetPassword = async () => {
 
-        if (user1.email !== "") {
-            await sendPasswordResetEmail(user1.email);
+        if (user.email !== "") {
+            await sendPasswordResetEmail(user.email);
             toast.success("Email Sent");
         } else {
             toast.error("please enter your email address", {

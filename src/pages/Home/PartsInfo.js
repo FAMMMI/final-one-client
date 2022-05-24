@@ -1,10 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../Shared/Button';
 
-const PartsInfo = ({ part }) => {
-    const { name, img, description, price, quantity, minimumQuantity } = part;
+const Product = ({ availableProduct, setProduct }) => {
+    const { _id, name, img, description, price, quantity, minimumQuantity } = availableProduct;
+
+    const navigate = useNavigate();
+
+    const gotoPurchase = (path) => {
+
+        setProduct(availableProduct);
+        navigate(path);
+    }
+
     return (
-        <div class="card w-96 bg-amber-200 shadow-xl">
+        <div class="card w-96 bg-amber-200		 shadow-xl">
             <figure class="px-10 pt-10">
                 <img src={img} alt="Part" class="rounded-xl" />
             </figure>
@@ -15,11 +25,11 @@ const PartsInfo = ({ part }) => {
                 <p><b>Minimum Order Quantity:</b> {minimumQuantity}</p>
                 <p><b>Price:</b> ${price}</p>
                 <div class="card-actions">
-                    <Button>Buy Now</Button>
+                    <button className="btn btn-primary text-white bg-gradient-to-r from-secondary to-primary hover:from-primary hover:to-secondary" onClick={() => gotoPurchase(`/purchase/${_id}`)}>Buy Now</button>
                 </div>
             </div>
         </div>
     );
 };
 
-export default PartsInfo;
+export default Product;

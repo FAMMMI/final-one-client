@@ -3,7 +3,7 @@ import img from '../../assets/images/motor.png'
 
 const IntroCard = () => {
     return (
-        <div className='my-10'>
+        <div className='my-10 mx-12'>
             <h2 className='text-5xl mb-4 font-bold text-accent'>BNB MOTORPARTS</h2>
             <div class="hero min-h-screen bg-base-200">
                 <div class="hero-content flex-col lg:flex-row">

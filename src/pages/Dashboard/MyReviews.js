@@ -1,35 +1,124 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 
-const MyReviews = () => {
-    const handleReviewSubmit = event => {
-        event.preventDefault();
+
+import { useForm } from 'react-hook-form';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import Loading from '../Shared/Loading';
+
+
+
+const AddReviews = () => {
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
+    const [user, loading] = useAuthState(auth);
+    const [newUser, setNewUser] = useState([]);
+    useEffect(() => {
+        fetch(`http://localhost:5000/users?email=${user?.email}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setNewUser(data);
+            })
+    }, [user])
+
+    if (loading) {
+        return <Loading></Loading>
     }
+
+    const onSubmit = async data => {
+
+        console.log(newUser);
+
+        const review = {
+            userName: newUser[0]?.name,
+            email: newUser[0]?.email,
+            star: data.star,
+            description: data.description
+        }
+
+        fetch(`http://localhost:5000/reviews`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(review)
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success(`Review have been added`)
+            });
+
+
+    }
+    // if (isLoading) {
+    //     return <Loading></Loading>
+    // }
     return (
-        <div onSubmit={handleReviewSubmit}>
-            <h2 className='text-accent text-3xl font-bold uppercase'>Give a rating</h2>
-            <div class="rating rating-md rating-half">
-                <input type="radio" name="rating-10" class="rating-hidden" />
-                <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" />
-                <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" />
-                <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" checked />
-                <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" />
-                <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" />
-                <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" />
-                <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" />
-                <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" />
-                <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" />
-                <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" />
-            </div>
-            <div class="form-control">
-                <label class="label">
-                    <span class="label-text mx-auto">Your description</span>
-                </label>
-                <textarea class="textarea textarea-bordered h-24 w-1/2 mx-auto" placeholder="Description"></textarea>
+        <div>
+            <h2 className='text-2xl font bold text-primary'>Add a review</h2>
+            <div style={{ margin: "0 0 1050px 0" }} class="page-add">
+                <div class="container-add">
+
+
+                    <div class="right-add d-flex align-items-center justify-content-center">
+                        <form onSubmit={handleSubmit(onSubmit)}>
+
+                            <div className="input-group w-100 mx-auto px-2">
+                                <label className="label">
+                                    <span className="label-text">Review On</span>
+                                </label>
+                                <input
+                                    type="number"
+                                    placeholder="Give review from 1-5"
+                                    className="input input-bordered w-full max-w-xs"
+                                    {...register("star", {
+                                        required: {
+                                            value: true,
+                                            message: 'Product Name is Required'
+                                        }
+                                    })}
+                                />
+                                <label className="label">
+                                    {errors.name?.type === 'required' && <span className="label-text-alt text-red-500">{errors.name.message}</span>}
+                                </label>
+                            </div>
+
+                            <div className="input-group w-100 mx-auto px-2">
+                                <label className="label">
+                                    <span className="label-text">Description</span>
+                                </label>
+                                <textarea
+                                    type="text"
+                                    placeholder="Product Review"
+                                    className="input input-bordered w-full max-w-xs"
+                                    {...register("description", {
+                                        required: {
+                                            value: true,
+                                            message: 'Product Description is Required'
+                                        }
+                                    })}
+                                />
+                                <label className="label">
+                                    {errors.description?.type === 'required' && <span className="label-text-alt text-red-500">{errors.description.message}</span>}
+                                </label>
+                            </div>
+
+                            <input className='form-submit button-33 w-100 mx-auto mt-4' type="submit" value="Add" />
+                        </form>
+                    </div>
+                </div>
 
             </div>
-            <button className='btn btn-primary text-white mt-6'>Submit</button>
         </div>
     );
 };
 
-export default MyReviews;
+export default AddReviews;

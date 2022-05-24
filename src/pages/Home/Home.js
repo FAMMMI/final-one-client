@@ -4,6 +4,7 @@ import BusinessSummery from './BusinessSummery';
 import ContactUs from './ContactUs';
 import IntroCard from './IntroCard';
 import Parts from './Parts';
+import Reviews from './Reviews';
 
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
             <IntroCard></IntroCard>
             <Parts></Parts>
             <BusinessSummery></BusinessSummery>
+            <Reviews></Reviews>
             <ContactUs></ContactUs>
 
         </div>
