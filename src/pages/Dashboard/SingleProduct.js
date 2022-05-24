@@ -5,7 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 const SingleProduct = (props) => {
     const { products, setProducts, index, setdeleteOrder } = props;
-    const { name, description, img, paid, price, quantity, _id, status, totalPrice } = props.product;
+    const { name, description, img, paid, price, quantity, _id, status, totalPrice, transactionId } = props.product;
 
 
     const deleteProduct = () => {
@@ -43,7 +43,8 @@ const SingleProduct = (props) => {
             <td>
                 {
                     !paid ? <Link to={`/dashboard/payment/${props.product._id}`}><button className='btn btn-xs btn-success text-white'>Pay</button></Link>
-                        : <h4 className='card__title'>Payment: <span className='text-success'>Paid</span></h4>
+                        : <div><h4 className='card__title'>Payment: <span className='text-success'>Paid</span></h4><p>Transaction ID : <span className='text-success'>{transactionId}</span></p></div>
+
                 }
                 {
                     paid && status === 'Pending' ? <h4 className='card__title'>Status: <span className='text-danger'>{status}</span></h4>

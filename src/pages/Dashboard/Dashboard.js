@@ -17,19 +17,19 @@ const Dashboard = () => {
 
 
             </div>
-            <div class="drawer-side">
+            <div class="drawer-side ">
                 <label for="dashboard-sidebar" class="drawer-overlay"></label>
-                <ul class="menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content">
+                <ul class="menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content bg-orange-600 text-white">
                     {/* <!-- Sidebar content here --> */}
-                    <li><Link to="/dashboard">My Orders</Link></li>
-                    <li><Link to="/dashboard/review">My Reviews</Link></li>
-                    <li><Link to="/dashboard/profile">My Profile</Link></li>
+                    <li className='text-white'><Link to="/dashboard">My Orders</Link></li>
+                    <li className='text-white'><Link to="/dashboard/review">My Reviews</Link></li>
+                    <li className='text-white'><Link to="/dashboard/profile">My Profile</Link></li>
                     {
                         admin && <>
-                            <li><Link to="/dashboard/allOrders">All Orders</Link></li>
-                            <li><Link to="/dashboard/addProduct">Add Product</Link></li>
-                            <li><Link to="/dashboard/manageProducts">Manage Products</Link></li>
-                            <li><Link to="/dashboard/users">Users</Link></li>
+                            <li className='text-white'><Link to="/dashboard/allOrders">All Orders</Link></li>
+                            <li className='text-white'><Link to="/dashboard/addProduct">Add Product</Link></li>
+                            <li className='text-white'><Link to="/dashboard/manageProducts">Manage Products</Link></li>
+                            <li className='text-white'><Link to="/dashboard/users">Users</Link></li>
                         </>
                     }
 
