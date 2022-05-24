@@ -55,7 +55,7 @@ const UpdateProduct = () => {
                     })
                         .then(res => res.json())
                         .then(data => {
-                            toast.success(`${product[0]?.name} have been updated`)
+                            toast.success(`${product?.name} have been updated`)
                         });
                 }
                 console.log(data);
@@ -64,13 +64,14 @@ const UpdateProduct = () => {
     }
     return (
         <div>
-            <h2 className='text-3xl font-bold'>Update Product</h2>
+            <h2 className='text-3xl font-bold my-4'>Update Product : <b>{product[0]?.name}</b></h2>
+
             <div style={{ margin: "0 0 1050px 0" }} class="page-add">
                 <div class="container-add">
-                    <div class="right-add d-flex align-items-center justify-content-center">
+                    <div class="grid align-center justify-center">
                         <form onSubmit={handleSubmit(onSubmit)}>
 
-                            <div className="input-group w-75 mx-auto">
+                            <div className="input-group w-75 mx-auto form-control">
                                 <label className="label">
                                     <span className="label-text">Price Per Unit $</span>
                                 </label>
@@ -90,7 +91,7 @@ const UpdateProduct = () => {
                                 </label>
                             </div>
 
-                            <div className="input-group w-75 mx-auto">
+                            <div className="input-group w-75 mx-auto form-control">
                                 <label className="label">
                                     <span className="label-text">Quantity</span>
                                 </label>
@@ -110,7 +111,7 @@ const UpdateProduct = () => {
                                     {errors.quantity?.type === 'required' && <span className="label-text-alt text-red-500">{errors.quantity.message}</span>}
                                 </label>
                             </div>
-                            <div className="input-group w-75 mx-auto">
+                            <div className="input-group w-75 mx-auto form-control">
                                 <label className="label">
                                     <span className="label-text">Minimum Quantity</span>
                                 </label>
@@ -131,7 +132,7 @@ const UpdateProduct = () => {
                                 </label>
                             </div>
 
-                            <div className="input-group w-75 mx-auto">
+                            <div className="input-group w-75 mx-auto form-control">
                                 <label className="label">
                                     <span className="label-text">Photo</span>
                                 </label>
@@ -150,7 +151,10 @@ const UpdateProduct = () => {
                                 </label>
                             </div>
 
-                            <input className='btn btn-secondary text-white' type="submit" value="Add" />
+                            <div className='grid justify-start'>
+                                <input className='btn btn-secondary text-white' type="submit" value="Update" />
+                            </div>
+
                         </form>
                     </div>
                 </div>

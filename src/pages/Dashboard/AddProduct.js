@@ -69,16 +69,16 @@ const AddProducts = () => {
     return (
         <div>
 
-            <div style={{ margin: "0 0 1050px 0" }} class="page-add">
+            <div class="">
                 <div class="container-add">
                     <div class="left-add">
-                        <div class="login">Add Products</div>
+                        <div class="text-2xl font-bold text-accent m-3">Add Products</div>
                     </div>
 
-                    <div class="right-add d-flex align-items-center justify-content-center">
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                    <div class=" grid align-center justify-center mx-auto my-4">
+                        <form className='mx-auto' onSubmit={handleSubmit(onSubmit)}>
 
-                            <div className="input-group w-75 mx-auto">
+                            <div className="input-group w-75 mx-auto form-control">
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
@@ -98,7 +98,7 @@ const AddProducts = () => {
                                 </label>
                             </div>
 
-                            <div className="input-group w-75 mx-auto">
+                            <div className="input-group w-75 mx-auto form-control">
                                 <label className="label">
                                     <span className="label-text">Description</span>
                                 </label>
@@ -118,7 +118,7 @@ const AddProducts = () => {
                                 </label>
                             </div>
 
-                            <div className="input-group w-75 mx-auto">
+                            <div className="input-group w-75 mx-auto form-control">
                                 <label className="label">
                                     <span className="label-text">Price Per Unit $</span>
                                 </label>
@@ -138,7 +138,7 @@ const AddProducts = () => {
                                 </label>
                             </div>
 
-                            <div className="input-group w-75 mx-auto">
+                            <div className="input-group w-75 mx-auto form-control">
                                 <label className="label">
                                     <span className="label-text">Quantity</span>
                                 </label>
@@ -158,7 +158,7 @@ const AddProducts = () => {
                                     {errors.quantity?.type === 'required' && <span className="label-text-alt text-red-500">{errors.quantity.message}</span>}
                                 </label>
                             </div>
-                            <div className="input-group w-75 mx-auto">
+                            <div className="input-group w-75 mx-auto form-control">
                                 <label className="label">
                                     <span className="label-text">Minimum Quantity</span>
                                 </label>
@@ -179,13 +179,13 @@ const AddProducts = () => {
                                 </label>
                             </div>
 
-                            <div className="input-group w-75 mx-auto">
+                            <div className="input-group w-75 mx-auto form-control">
                                 <label className="label">
                                     <span className="label-text">Photo</span>
                                 </label>
                                 <input
                                     type="file"
-                                    className="input input-bordered w-full max-w-xs"
+                                    className="input  w-full max-w-xs"
                                     {...register("image", {
                                         required: {
                                             value: true,
@@ -198,12 +198,15 @@ const AddProducts = () => {
                                 </label>
                             </div>
 
-                            <input className='btn btn-secondary' type="submit" value="Add" />
+                            <div className='grid justify-start'>
+                                <input className='btn btn-secondary text-white' type="submit" value="Add Product" />
+                            </div>
+
                         </form>
-                        <ToastContainer></ToastContainer>
+
                     </div>
                 </div>
-                <ToastContainer />
+
             </div>
         </div>
     );

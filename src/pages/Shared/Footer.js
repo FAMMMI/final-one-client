@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
     return (
         <div>
-            <footer class="footer p-10 bg-base-200 text-base-content lg:justify-around
+            <footer class="footer p-10 bg-amber-200 text-base-content lg:justify-around
             ">
                 <div>
                     <span class="footer-title">Services</span>
@@ -26,9 +26,9 @@ const Footer = () => {
                     <a class="link link-hover">Cookie policy</a>
                 </div>
             </footer>
-            <footer class=" justify-center footer px-10 py-4 border-t bg-base-200 text-base-content border-base-300 ">
+            <footer class=" justify-center footer px-10 py-4 border-t bg-amber-200 text-base-content  ">
                 <div class="items-center grid-flow-col px-4">
-                    <p>ACME Industries Ltd. <br /> Providing reliable tech since 1992</p>
+                    <p>BNB Motorparts Ltd. <br /> Providing reliable tech since 2010</p>
                 </div>
                 <div class=" md:place-self-center md:justify-around md:px-auto ">
                     <div class="grid grid-flow-col gap-6">

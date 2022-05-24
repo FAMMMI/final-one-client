@@ -24,6 +24,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Payment from './pages/Dashboard/Payment';
 import RequireAdmin from './pages/Login/RequireAdmin';
+import Blogs from './pages/Blogs/Blogs'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path='/home' element={<Home></Home>}></Route>
         <Route path='/myPortfolio' element={<MyPortfolio></MyPortfolio>}></Route>
 
+        <Route path='/blogs' element={<Blogs></Blogs>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/signup' element={<Signup></Signup>}></Route>
         <Route path='/products' element={<Products></Products>}></Route>

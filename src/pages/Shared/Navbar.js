@@ -15,17 +15,18 @@ const Navbar = () => {
     };
 
     const menuItem = <>
-        <li><CustomLink to="/about" > About</CustomLink></li>
+        <li><CustomLink to="/home" >Home</CustomLink></li>
         <li><CustomLink to="/products"> Products</CustomLink></li>
         <li><CustomLink to="/myPortfolio"> My Protfolio</CustomLink></li>
-        <li><CustomLink to="/review" >Review</CustomLink></li>
+        <li><CustomLink to="/blogs" >Blogs</CustomLink></li>
+
         {
             user && <li><CustomLink to="/dashboard" >Dashboard</CustomLink></li>
         }
         <li>{user ? <button className='btn btn-ghost' onClick={logout}>Sign Out</button> : <CustomLink to="/login" >Login</CustomLink>}</li>
     </>
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-amber-200 ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex="0" className="btn btn-ghost lg:hidden">
@@ -36,10 +37,10 @@ const Navbar = () => {
 
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-xl">Doctor's Portal</a>
+                <Link to="/home" className="btn btn-ghost normal-case text-3xl text-primary ">BNB MOTORPARTS</Link>
             </div>
-            <div className="navbar-end">
-                <Link to="/home" className="btn">Home</Link>
+            <div >
+
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
