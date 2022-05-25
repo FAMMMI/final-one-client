@@ -8,13 +8,15 @@ import SingleProduct from './SingleProduct';
 const MyOrders = () => {
     const [products, setProducts] = useState([]);
     const [user] = useAuthState(auth);
-    const [deleteOrder, setdeleteOrder] = useState(null);
+    const [deleteOrder, setdeleteOrder] = useState();
 
     useEffect(() => {
         fetch(`http://localhost:5000/orders?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setProducts(data));
     }, [user])
+
+
 
     console.log(products);
     return (
@@ -37,20 +39,23 @@ const MyOrders = () => {
                             products.map((product, index) => <SingleProduct key={product._id}
                                 index={index}
                                 product={product} products={products} setProducts={setProducts}
-                                setdeleteOrder={setdeleteOrder}>
+                                setdeleteOrder={setdeleteOrder}
+                            >
                             </SingleProduct>)
                         }
                     </tbody>
                 </table>
                 {
                     deleteOrder && <DeleteOrder
+                        products={products}
+                        setProducts={setProducts}
                         deleteOrder={deleteOrder}
                         setdeleteOrder={setdeleteOrder}
                     ></DeleteOrder>
                 }
             </div>
 
-        </div>
+        </div >
     );
 };
 

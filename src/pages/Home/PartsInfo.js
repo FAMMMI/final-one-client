@@ -14,9 +14,9 @@ const Product = ({ availableProduct, setProduct }) => {
     }
 
     return (
-        <div class="card w-96 bg-amber-200		 shadow-xl">
-            <figure class="px-10 pt-10">
-                <img src={img} alt="Part" class="rounded-xl" />
+        <div class="card lg:max-w-lg bg-amber-200		 shadow-xl">
+            <figure class="px-5 pt-5">
+                <img src={img} alt="Part" class="rounded-xl w-full h-60" />
             </figure>
             <div class="card-body items-center text-center">
                 <h2 class="card-title font-bold text-accent pb-4">{name}</h2>

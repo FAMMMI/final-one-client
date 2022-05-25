@@ -1,13 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import useToken from '../../hooks/useToken'
 import { format } from 'date-fns';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 import { toast } from 'react-toastify';
-
-
 
 const Signup = () => {
 
@@ -32,6 +30,8 @@ const Signup = () => {
 
     const [createUserWithEmailAndPassword, user, loading, error] =
         useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+
+    // const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
     const [updateProfile, updating] = useUpdateProfile(auth);
     const [email, setEmail] = useState("");
 
@@ -150,10 +150,12 @@ const Signup = () => {
                         <h6 className="text-danger my-3"> {errorMsg}</h6>
                         <h6 className="text-danger my-3"> {errorMessage}</h6>
 
+
+
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

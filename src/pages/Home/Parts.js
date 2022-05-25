@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PartsInfo from './PartsInfo';
 
 const Parts = () => {
+    const navigate = useNavigate();
     const [product, setProduct] = useState(null);
     const [availableProducts, setavailableProducts] = useState([]);
     useEffect(() => {
@@ -15,6 +17,9 @@ const Parts = () => {
             .then(data => setavailableProducts(data))
     }, []);
 
+    const handleShowmore = () => {
+        navigate('/products')
+    }
 
     return (
         <div>
@@ -30,6 +35,9 @@ const Parts = () => {
                         setProduct={setProduct}
                     ></PartsInfo>)
                 }
+            </div>
+            <div className='mb-12'>
+                <button className='btn btn-primary text-white' onClick={() => handleShowmore()}>Show More Products</button>
             </div>
         </div>
     );

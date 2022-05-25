@@ -39,6 +39,7 @@ const AddReviews = () => {
         const review = {
             userName: newUser[0]?.name,
             email: newUser[0]?.email,
+            img: newUser[0]?.img,
             star: data.star,
             description: data.description
         }

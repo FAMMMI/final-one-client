@@ -3,9 +3,9 @@ import React from 'react';
 const Banner = () => {
     return (
         <div className='m-10'>
-            <div class="carousel w-full">
+            <div class="carousel w-full h-100">
                 <div id="slide2" class="carousel-item relative w-full">
-                    <img className='w-full ' src="https://bikeadvice.in/wp-content/uploads/2014/08/Royal-Enfield-Continental-GT-Pics-paioli-shock-absorber-1280x720.jpg" ></img> /
+                    <img className='w-full  ' src="https://bikeadvice.in/wp-content/uploads/2014/08/Royal-Enfield-Continental-GT-Pics-paioli-shock-absorber-1280x720.jpg" ></img>
                     <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                         <a href="#slide1" class="btn btn-circle">❮</a>
                         <a href="#slide3" class="btn btn-circle">❯</a>

@@ -63,7 +63,7 @@ const MyProfile = () => {
                         role: newUser[0]?.role
                     }
                     console.log(updatedUser);
-                    fetch(`http://localhost:5000/users?email=${newUser[0]?.email}`, {
+                    fetch(`http://localhost:5000/users?id=${newUser[0]?._id}`, {
                         method: 'PUT',
                         headers: {
                             'content-type': 'application/json',
@@ -93,97 +93,96 @@ const MyProfile = () => {
     }
 
     return (
-        <div data-aos='fade-right'>
-            <div class="portfoliocard">
-                <div class="coverphoto"></div>
-                <div class="profile_picture" style={{
-                    backgroundImage: `url(${newUser[0]?.img})`
-                }}></div>
+        <div className=' min-h-screen '>
+            <div className="grid grid-cols-2 align-center my-8 justify-around">
+                <div class="card w-96 mx-auto bg-base-100 shadow-xl">
+                    <figure class="px-10 pt-10">
+                        <img src={newUser[0]?.img} alt="Shoes" class="rounded-xl" />
+                    </figure>
+                    <div class="card-body items-center text-center">
+                        <h2 class="card-title">Name: {newUser[0]?.name}</h2>
+                        <h2 class="card-title">email: {newUser[0]?.email}</h2>
+                        <p>Address: {newUser[0]?.address}</p>
+                        <p>Phone: {newUser[0]?.phone}</p>
 
-                <div class="right_col">
-                    <h2 data-aos='fade-left' class="name">{newUser[0]?.name}</h2>
-                    <h3 data-aos='fade-left' class="location mt-2">{newUser[0]?.adress}</h3>
-                    <ul data-aos='fade-left' class="contact_information">
-                        <h5>{newUser[0]?.email}</h5>
-                        <h5>{newUser[0]?.phone}</h5>
-                    </ul>
-                </div>
-            </div>
-            <div style={{ margin: "0 0 1050px 0" }} class="page-add">
-                <div class="container-add">
-                    <div class="left-add">
-                        <div class="login">Update Profile</div>
 
                     </div>
+                </div>
+                <div class="page-add">
+                    <div class="container-add">
+                        <div class="left-add">
+                            <div class="login">Update Profile</div>
 
-                    <div class="right-add d-flex align-items-center justify-content-center">
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                        </div>
 
-                            <div className="input-group w-75 mx-auto">
-                                <label className="label">
-                                    <span className="label-text">Phone</span>
-                                </label>
-                                <input
-                                    type="number"
-                                    placeholder="Your Phone Number"
-                                    className="input input-bordered w-full max-w-xs"
-                                    {...register("phone", {
-                                        required: {
-                                            value: true,
-                                            message: 'Phone is Required'
-                                        }
-                                    })}
-                                />
-                                <label className="label">
-                                    {errors.phone?.type === 'required' && <span className="label-text-alt text-red-500">{errors.phone.message}</span>}
-                                </label>
-                            </div>
+                        <div class="right-add flex align-center justify-center">
+                            <form onSubmit={handleSubmit(onSubmit)}>
 
-                            <div className="input-group w-75 mx-auto">
-                                <label className="label">
-                                    <span className="label-text">Address</span>
-                                </label>
-                                <input
-                                    type="text"
-                                    placeholder="Your Address"
-                                    min={1}
-                                    className="input input-bordered w-full max-w-xs"
-                                    {...register("address", {
-                                        required: {
-                                            value: true,
-                                            message: 'Address is Required'
-                                        }
-                                    })}
-                                />
-                                <label className="label">
-                                    {errors.address?.type === 'required' && <span className="label-text-alt text-red-500">{errors.address.message}</span>}
-                                </label>
-                            </div>
+                                <div className="input-group w-75 mx-auto form-control">
+                                    <label className="label">
+                                        <span className="label-text">Phone</span>
+                                    </label>
+                                    <input
+                                        type="number"
+                                        placeholder="Your Phone Number"
+                                        className="input input-bordered w-full max-w-xs"
+                                        {...register("phone", {
+                                            required: {
+                                                value: true,
+                                                message: 'Phone is Required'
+                                            }
+                                        })}
+                                    />
+                                    <label className="label">
+                                        {errors.phone?.type === 'required' && <span className="label-text-alt text-red-500">{errors.phone.message}</span>}
+                                    </label>
+                                </div>
 
-                            <div className="input-group w-75 mx-auto">
-                                <label className="label">
-                                    <span className="label-text">Photo</span>
-                                </label>
-                                <input
-                                    type="file"
-                                    className="input input-bordered w-full max-w-xs"
-                                    {...register("image", {
-                                        required: {
-                                            value: true,
-                                            message: ' '
-                                        }
-                                    })}
-                                />
-                                <label className="label">
-                                    {errors.file?.type === 'required' && <span className="label-text-alt text-red-500">{errors.file.message}</span>}
-                                </label>
-                            </div>
+                                <div className="input-group w-75 mx-auto form-control">
+                                    <label className="label">
+                                        <span className="label-text">Address</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        placeholder="Your Address"
+                                        min={1}
+                                        className="input input-bordered w-full max-w-xs"
+                                        {...register("address", {
+                                            required: {
+                                                value: true,
+                                                message: 'Address is Required'
+                                            }
+                                        })}
+                                    />
+                                    <label className="label">
+                                        {errors.address?.type === 'required' && <span className="label-text-alt text-red-500">{errors.address.message}</span>}
+                                    </label>
+                                </div>
 
-                            <input className='form-submit button-33 w-75 mx-auto mt-4' type="submit" value="Update" />
-                        </form>
+                                <div className="input-group w-75 mx-auto form-control">
+                                    <label className="label">
+                                        <span className="label-text">Photo</span>
+                                    </label>
+                                    <input
+                                        type="file"
+                                        className="input  w-full max-w-xs"
+                                        {...register("image", {
+                                            required: {
+                                                value: true,
+                                                message: ' '
+                                            }
+                                        })}
+                                    />
+                                    <label className="label">
+                                        {errors.file?.type === 'required' && <span className="label-text-alt text-red-500">{errors.file.message}</span>}
+                                    </label>
+                                </div>
+
+                                <input className='btn btn-primary text-white' type="submit" value="Update" />
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <ToastContainer></ToastContainer>
             </div>
         </div>
     );

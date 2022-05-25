@@ -6,6 +6,7 @@ import Loading from '../Shared/Loading'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import useToken from '../../hooks/useToken';
+import SocialLogin from './Social Login/SocialLogin';
 
 const Login = () => {
     const emailRef = useRef("");
@@ -13,7 +14,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [student, setStudent] = useState([]);
 
-    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+    // const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [
         signInWithEmailAndPassword,
@@ -22,7 +23,7 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
-    const [token] = useToken(user || gUser);
+    const [token] = useToken(user);
 
 
 
@@ -48,18 +49,18 @@ const Login = () => {
     let from = location.state?.from?.pathname || "/";
 
     if (token) {
-        console.log(user || gUser);
+        console.log(user);
         navigate(from, { replace: true });
     }
 
 
 
-    if (loading || gLoading) {
+    if (loading) {
         return <Loading></Loading>
     }
 
-    if (error || gError) {
-        signInErrorMessage = <p className='text-red-500 text-sm'>{error?.message || gError?.message}</p>
+    if (error) {
+        signInErrorMessage = <p className='text-red-500 text-sm'>{error?.message}</p>
     }
 
     const resetPassword = async () => {
@@ -138,12 +139,10 @@ const Login = () => {
                     </form>
                     <button className='form-link bg-transparent border-0 mb-3' onClick={resetPassword}>Reset Password</button>
                     <p><small>New to Doctor's Portal? <Link className='text-secondary' to="/signup">Create New Account</Link></small></p>
-                    <div className="divider">OR</div>
-                    <button
-                        className="btn btn-outline"
-                        onClick={() => signInWithGoogle()}>Continue With Google</button>
+
                 </div>
             </div>
+            <SocialLogin></SocialLogin>
         </div>
     );
 };

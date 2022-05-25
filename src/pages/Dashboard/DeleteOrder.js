@@ -1,7 +1,7 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const DeleteOrder = ({ deleteOrder, setdeleteOrder }) => {
+const DeleteOrder = ({ deleteOrder, setdeleteOrder, products, setProducts }) => {
 
     const { _id, name, description, price, quantity } = deleteOrder;
 
@@ -17,6 +17,10 @@ const DeleteOrder = ({ deleteOrder, setdeleteOrder }) => {
 
                     toast.success('Order successfully deleted');
                     setdeleteOrder(null);
+                    if (data.deletedCount > 0) {
+                        const remaining = deleteOrder.filter(item => item._id !== _id);
+                        setdeleteOrder(remaining);
+                    }
                 }
             })
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 
-const SingleReview = (props) => {
+const singleReviewNav = (props) => {
+
     const { userName, name, email, description, _id, img, star } = props.review;
     return (
         <div class="card w-96 bg-amber-200 shadow-xl py-10">
@@ -18,6 +19,7 @@ const SingleReview = (props) => {
             <p className='text-center'><b>Review:</b> {description}</p>
         </div>
     );
+
 };
 
-export default SingleReview;
+export default singleReviewNav;

@@ -57,6 +57,7 @@ const Purchase = () => {
 
         const prevQuantity = parseInt(item[0]?.quantity);
         const newQuantity = parseInt(data.quantity);
+        const minimumQuantity = parseInt(item[0]?.minimumQuantity);
 
         if (data.quantity === '' || data.quantity === undefined) {
             return toast.error('Empty Quantity');
@@ -67,6 +68,12 @@ const Purchase = () => {
         if (newQuantity > prevQuantity) {
             return toast.error('Quantity Excedded');
         }
+
+        if (newQuantity < minimumQuantity) {
+            return toast.error('Minimum Quantity Required');
+        }
+
+
 
         const product = {
             userName: data.userName,
@@ -133,6 +140,7 @@ const Purchase = () => {
                 <div class="card-body">
                     <h2 class="card-title"><b>Product Name:</b>{item[0]?.name}</h2>
                     <p><b>Details:</b> {item[0]?.description}</p>
+                    <p><b>Minimum Product Required:</b> {item[0]?.minimumQuantity}</p>
                     <p className='justify-start'><b>Price:</b> ${item[0]?.price}</p>
 
 
@@ -242,6 +250,7 @@ const Purchase = () => {
                         type="number"
                         placeholder="Product Quantity"
                         min={1}
+
                         className="input input-bordered w-full max-w-xs"
                         {...register("quantity")}
                     />
