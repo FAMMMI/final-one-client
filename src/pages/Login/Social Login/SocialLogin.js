@@ -46,19 +46,14 @@ const SocialLogin = () => {
             </div>
             {errorElement}
             {errorElement1}
-            <div className=''>
+            <div className='mt-2'>
                 <button
                     onClick={() => signInWithGoogle()}
-                    className='button-33 d-block mx-auto my-2'>
+                    className='btn btn-outline '>
 
-                    <span className='px-2'>Sign In</span>
+                    <span className='px-2'>Sign In With Google</span>
                 </button>
-                <button
-                    onClick={() => signInWithGithub()}
-                    className='button-33 d-block mx-auto'>
-
-                    <span className='px-2'>Sign In</span>
-                </button>
+               
             </div>
         </div>
     );

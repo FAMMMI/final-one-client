@@ -64,9 +64,9 @@ const Login = () => {
     }
 
     const resetPassword = async () => {
-
-        if (user.email !== "") {
-            await sendPasswordResetEmail(user.email);
+        const email = emailRef.current.value;
+        if (email !== "") {
+            await sendPasswordResetEmail(email);
             toast.success("Email Sent");
         } else {
             toast.error("please enter your email address", {
@@ -137,12 +137,12 @@ const Login = () => {
                         {signInErrorMessage}
                         <input className='btn w-full max-w-xs text-white' type="submit" value='Login' />
                     </form>
-                    <button className='form-link bg-transparent border-0 mb-3' onClick={resetPassword}>Reset Password</button>
+                    <button className='btn w-full max-w-xs text-white' onClick={resetPassword}>Reset Password</button>
                     <p><small>New to Doctor's Portal? <Link className='text-secondary' to="/signup">Create New Account</Link></small></p>
-
+                    <SocialLogin></SocialLogin>
                 </div>
             </div>
-            <SocialLogin></SocialLogin>
+            
         </div>
     );
 };

@@ -55,7 +55,7 @@ const UpdateProduct = () => {
                     })
                         .then(res => res.json())
                         .then(data => {
-                            toast.success(`${product?.name} have been updated`)
+                            toast.success(`${product[0]?.name} have been updated`)
                         });
                 }
                 console.log(data);
