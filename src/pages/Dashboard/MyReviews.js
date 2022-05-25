@@ -64,14 +64,14 @@ const AddReviews = () => {
     return (
         <div>
             <h2 className='text-2xl font bold text-primary'>Add a review</h2>
-            <div style={{ margin: "0 0 1050px 0" }} class="page-add">
+            <div class="page-add">
                 <div class="container-add">
 
 
                     <div class="right-add d-flex align-items-center justify-content-center">
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                        <form className='grid justify-center align-center my-10' onSubmit={handleSubmit(onSubmit)}>
 
-                            <div className="input-group w-100 mx-auto px-2">
+                            <div className="input-group w-100 mx-auto px-2 form-control">
                                 <label className="label">
                                     <span className="label-text">Review On</span>
                                 </label>
@@ -91,7 +91,7 @@ const AddReviews = () => {
                                 </label>
                             </div>
 
-                            <div className="input-group w-100 mx-auto px-2">
+                            <div className="input-group w-100 mx-auto px-2 form-control">
                                 <label className="label">
                                     <span className="label-text">Description</span>
                                 </label>
@@ -111,7 +111,7 @@ const AddReviews = () => {
                                 </label>
                             </div>
 
-                            <input className='form-submit button-33 w-100 mx-auto mt-4' type="submit" value="Add" />
+                            <input className='btn btn-primary text-white' type="submit" value="Add Review" />
                         </form>
                     </div>
                 </div>
