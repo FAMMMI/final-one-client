@@ -26,6 +26,7 @@ import Payment from './pages/Dashboard/Payment';
 import RequireAdmin from './pages/Login/RequireAdmin';
 import Blogs from './pages/Blogs/Blogs'
 import ReviewsNav from './pages/Reviews/ReviewsNav';
+import WelcomeDashboard from './pages/Dashboard/WelcomeDashboard';
 
 
 function App() {
@@ -50,9 +51,9 @@ function App() {
         <Route path='/dashboard' element={<RequireAuth>
           <Dashboard></Dashboard>
         </RequireAuth>}>
-          <Route index element={<MyOrders></MyOrders>}></Route>
+          <Route index element={<MyProfile></MyProfile>}></Route>
           <Route path='review' element={<MyReviews></MyReviews>}></Route>
-          <Route path='profile' element={<MyProfile></MyProfile>}></Route>
+          <Route path='myOrders' element={<MyOrders></MyOrders>}></Route>
           <Route path='allOrders' element={<RequireAdmin>
             <AllOrders></AllOrders>
           </RequireAdmin>}></Route>

@@ -3,7 +3,7 @@ import { Modal } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 
 const ManageIndividualOrders = (props) => {
-    const { orders, setOrders, index, setDeleteOrders } = props;
+    const { orders, setOrders, index, setDeleteOrders, refetch } = props;
     const { name, description, price, totalPrice, quantity, productCode, img, status, _id, paid, email, userName, address, phone } = props.order;
 
 
@@ -29,18 +29,23 @@ const ManageIndividualOrders = (props) => {
                         console.log(orders[i]);
                     }
                 }
+                refetch();
                 toast.success(`Status is updated`);
-                setOrders(orders);
+
+
             })
 
-        fetch(`http://localhost:5000/orders`, {
-            method: 'GET',
-            headers: {
-                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => setOrders(data))
+        // fetch(`http://localhost:5000/orders`, {
+        //     method: 'GET',
+        //     headers: {
+        //         'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        //     }
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         setOrders(data)
+        //         refetch();
+        //     })
     }
 
 

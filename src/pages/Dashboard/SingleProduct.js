@@ -51,7 +51,7 @@ const SingleProduct = (props) => {
                         : <h4 className='card__title'>Status: <span className='text-success'>{status}</span></h4>
                 }
             </td>
-            <td>{totalPrice}</td>
+            <td><b>${totalPrice}</b> </td>
             <td>{quantity}</td>
             <td>{
                 !paid && <label onClick={() => setdeleteOrder(props.product)} for="my-modal-6" class="btn btn-xs btn-error">Delete</label>

@@ -46,14 +46,14 @@ const SocialLogin = () => {
             </div>
             {errorElement}
             {errorElement1}
-            <div className='mt-2'>
+            <div className='mb-4'>
                 <button
                     onClick={() => signInWithGoogle()}
                     className='btn btn-outline '>
 
                     <span className='px-2'>Sign In With Google</span>
                 </button>
-               
+
             </div>
         </div>
     );

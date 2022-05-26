@@ -1,9 +1,10 @@
 import React from 'react';
+import img from '../../assets/images/dp.png';
 
 const MyPortfolio = () => {
     return (
-        <div>
-            <div className='m-16 grid text-left '>
+        <div className='grid grid-cols-1 lg:grid-cols-2'>
+            <div className='m-16 grid lg:text-left text-left '>
                 <h2 className='text-accent font-bold'><b>Name:</b> Naimur Rahaman Imthiaz</h2>
                 <h2 className='text-accent font-bold'><b>Email:</b> naimfami9@gmail.com</h2>
                 <h2 className='text-accent font-bold'><b>Educational Background:</b> BSc in CSE , International Islamic University Chittagong, Bangladesh.(running) <br />
@@ -23,6 +24,11 @@ const MyPortfolio = () => {
                 <p><b>Massive Lift Up:</b><a className='text-secondary' href="">https://assignment-ten-1260c.web.app/</a></p>
                 <p><b>My-cro Center:</b><a className='text-secondary' href="">https://my-cro-center-by-fami.netlify.app/</a></p>
                 <p><b>Watch Center:</b><a className='text-secondary' href="">https://watch-center-by-fami.netlify.app/</a></p>
+            </div>
+            <div className='avatar my-20 mx-auto '>
+                <div className='w-60 rounded'>
+                    <img src={img} alt="" />
+                </div>
             </div>
         </div>
     );

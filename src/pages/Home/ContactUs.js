@@ -1,7 +1,12 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import bg from '../../assets/images/bg2.png'
 
 const ContactUs = () => {
+
+    const handleSubmit = () => {
+        toast.success('Message Submitted');
+    }
     return (
         <div
             style={{
@@ -31,7 +36,7 @@ const ContactUs = () => {
                 ></textarea>
             </div>
             <div className='text-center pb-10'>
-                <button className="btn btn-primary text-white bg-gradient-to-r from-secondary to-primary px-6 py-0">Submit</button>
+                <button onClick={() => handleSubmit()} className="btn btn-primary text-white bg-gradient-to-r from-secondary to-primary px-6 py-0">Submit</button>
             </div>
 
         </div >

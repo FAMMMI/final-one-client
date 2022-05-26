@@ -14,7 +14,7 @@ const AllOrders = () => {
     //         .then(data => setOrders(data));
     // }, [])
 
-    const { data: orders, isLoading, refetch } = useQuery('orders', () => fetch('http://localhost:5000/orders', {
+    const { data: orders, setOrders, isLoading, refetch } = useQuery('orders', () => fetch('http://localhost:5000/orders', {
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
@@ -49,10 +49,11 @@ const AllOrders = () => {
                             orders.map((order, index) => <ManageIndividualOrders key={order._id}
                                 index={index}
                                 order={order}
-                                // orders={orders} setOrders={setOrders}
+                                orders={orders}
+                                setOrders={setOrders}
                                 setDeleteOrders={setDeleteOrders}
                                 refetch={refetch}
-                                ></ManageIndividualOrders>)
+                            ></ManageIndividualOrders>)
                         }
                     </tbody>
                 </table>

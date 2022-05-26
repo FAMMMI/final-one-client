@@ -14,7 +14,7 @@ const Product = ({ availableProduct, setProduct }) => {
     }
 
     return (
-        <div class="card w-96 bg-amber-200		 shadow-xl">
+        <div class="card w-96 bg-amber-200	border-4 border-amber-700	 shadow-xl">
             <figure class="px-10 pt-10">
                 <img src={img} alt="Part" class="rounded-xl" />
             </figure>

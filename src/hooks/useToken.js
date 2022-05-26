@@ -7,7 +7,8 @@ const useToken = user => {
         const getToken = async () => {
             const currentUser = {
                 email: user?.user?.email,
-                name: user?.user?.displayName
+                // name: user?.user?.displayName
+                // displayName: user?.user?.displayName
             }
 
             if (user?.user?.email) {

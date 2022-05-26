@@ -35,7 +35,7 @@ const ManageProducts = () => {
     return (
         <div >
             <div>
-                <h2 className='text-2xl font-bold'>Manage Products</h2>
+                <h2 className='text-2xl text-primary mb-4 font-bold'>Manage Products</h2>
                 <table class="table w-full">
                     <thead>
                         <tr>
@@ -59,7 +59,7 @@ const ManageProducts = () => {
                                 // products={products}
                                 // setProducts={setProducts}
                                 refetch={refetch}
-                                >
+                            >
 
                             </ManageIndividualProduct>)
                         }

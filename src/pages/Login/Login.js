@@ -1,33 +1,31 @@
 import React, { useEffect, useRef, useState } from 'react';
-import auth from '../../firebase.init'
-import { useAuthState, useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import { useForm } from "react-hook-form";
-import Loading from '../Shared/Loading'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import useToken from '../../hooks/useToken';
-import SocialLogin from './Social Login/SocialLogin';
+import Loading from '../Shared/Loading';
+import auth from '../../firebase.init';
+import SocialLogin from './Social Login/SocialLogin'
 
 const Login = () => {
     const emailRef = useRef("");
     const passwordRef = useRef("");
+    const navigate = useNavigate();
+    const location = useLocation();
     const [email, setEmail] = useState('');
     const [student, setStudent] = useState([]);
 
-    // const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const [
-        signInWithEmailAndPassword,
-        user,
-        loading,
-        error,
-    ] = useSignInWithEmailAndPassword(auth);
 
-    const [token] = useToken(user);
+    let from = location.state?.from?.pathname || "/";
+    let errorElement = <></>;
 
+    const eventSetEmail = (event) => {
+        setEmail(event.target.value);
+    }
 
-
-    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+    const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
     useEffect(() => {
         fetch(`http://localhost:5000/users?email=${user?.email}`, {
@@ -37,114 +35,90 @@ const Login = () => {
             }
         })
             .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                setStudent(data)
-            })
+            .then(data => setStudent(data))
     }, [user])
 
-    let signInErrorMessage;
-    const navigate = useNavigate();
-    const location = useLocation();
-    let from = location.state?.from?.pathname || "/";
 
-    if (token) {
-        console.log(user);
-        navigate(from, { replace: true });
-    }
+    const [token] = useToken(user);
 
-
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
     if (loading) {
         return <Loading></Loading>
     }
 
-    if (error) {
-        signInErrorMessage = <p className='text-red-500 text-sm'>{error?.message}</p>
+    if (token) {
+        navigate(from, { replace: true });
     }
+
+    const EventSubmit = async (event) => {
+        event.preventDefault();
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
+
+        await signInWithEmailAndPassword(email, password);
+    };
 
     const resetPassword = async () => {
         const email = emailRef.current.value;
         if (email !== "") {
             await sendPasswordResetEmail(email);
-            toast.success("Email Sent");
+            toast("Email Sent");
         } else {
             toast.error("please enter your email address", {
                 theme: "colored",
             });
         }
     };
-
-    const onSubmit = async (data) => {
-
-        console.log(data);
-        await signInWithEmailAndPassword(data.email, data.password);
+    if (error) {
+        errorElement = <div className='my-3'>
+            <p className="text-danger"> {error?.message}</p>
+        </div>
     }
-
     return (
-        <div className='flex items-center h-screen justify-center'>
-            <div className="card lg:max-w-lg bg-base-100 shadow-xl">
-                <div className="card-body">
-                    <h2 className="text-center text-2xl font-bold">Login</h2>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
 
-                        <div className="form-control w-full max-w-xs">
-                            <label className="label">
+            <div class="card w-96 bg-base-100 shadow-xl my-10 mx-auto">
+                <div class="container-login">
+
+
+                    <form onSubmit={EventSubmit} class="card-body items-center text-center">
+                        <h2 class="card-title text-2xl">Login</h2>
+                        <div className="input-group mb-0 w-75 mx-auto form-control">
+                            <label htmlFor='email' className="label">
                                 <span className="label-text">Email</span>
 
                             </label>
-                            <input {...register("email", {
-                                required: {
-                                    value: true,
-                                    message: 'Email is required'
-
-                                },
-                                pattern: {
-                                    value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                                    message: 'Provide a valid email.'
-                                }
-                            })} type="email" placeholder="Your Email" className="input input-bordered w-full max-w-xs" />
-                            <label className="label">
-                                {errors.email?.type === 'required' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
-                                {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
-
-
-                            </label>
+                            <input onBlur={eventSetEmail} className='input input-bordered w-full max-w-xs' ref={emailRef} type="email" name="email" id='email' required />
                         </div>
-                        <div className="form-control w-full max-w-xs">
-                            <label className="label">
+                        <div className="input-group w-75 mx-auto form-control">
+                            <label htmlFor='password' className="label">
                                 <span className="label-text">Password</span>
 
                             </label>
-                            <input {...register("password", {
-                                required: {
-                                    value: true,
-                                    message: 'Password is required'
-
-                                },
-                                minLength: {
-                                    value: 6,
-                                    message: 'Provide a strong password.'
-                                }
-                            })} type="password" placeholder="Your password" className="input input-bordered w-full max-w-xs" />
-                            <label className="label">
-                                {errors.password?.type === 'required' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
-                                {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
-
-
-                            </label>
+                            <input ref={passwordRef} className='input input-bordered w-full max-w-xs' type="password" name="password" id='password' />
                         </div>
-                        {signInErrorMessage}
-                        <input className='btn w-full max-w-xs text-white' type="submit" value='Login' />
+
+                        <input className='btn btn-primary w-full text-white' type="submit" required value="Login" />
+                        <button className='btn btn-primary w-full text-white' onClick={resetPassword}>Reset Password</button>
+
                     </form>
-                    <button className='btn w-full max-w-xs text-white' onClick={resetPassword}>Reset Password</button>
-                    <p><small>New to Doctor's Portal? <Link className='text-secondary' to="/signup">Create New Account</Link></small></p>
+                    {errorElement}
+                    <p className='my-3 fs-5'>
+                        New User? <Link className='form-link' to='/signup'><span className='text-primary'>Sign Up</span></Link>
+                    </p>
                     <SocialLogin></SocialLogin>
+
                 </div>
+
+
+
             </div>
-            
-        </div>
+        </div >
     );
+
 };
 
 export default Login;
+
+

@@ -133,7 +133,7 @@ const Purchase = () => {
 
 
 
-        <div className="grid grid-cols-2 align-center my-8 justify-around">
+        <div className="grid grid-cols-1 lg:grid-cols-2  gap-4 align-center my-8 justify-around">
 
             <div class="card w-96 bg-base-100 shadow-xl mx-auto">
                 <figure><img src={item[0].img} alt="Shoes" /></figure>
@@ -158,7 +158,7 @@ const Purchase = () => {
                     </label>
                     <input
                         type="text"
-                        value={user?.displayName} readOnly
+                        value={newUser[0]?.name} readOnly
                         placeholder="Your Name"
                         className="input input-bordered w-full max-w-xs"
                         {...register("userName")}

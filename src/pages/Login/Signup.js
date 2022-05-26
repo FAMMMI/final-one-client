@@ -111,8 +111,8 @@ const Signup = () => {
     }
     return (
         <div>
-            <h2>Sign UP</h2>
-            <div class="hero min-h-screen bg-base-200">
+            <h2 className='text-3xl font-bold text-primary mt-6'>Sign UP</h2>
+            <div class="hero min-h-screen ">
                 <div class="hero-content flex-col lg:flex-row-reverse">
                     <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <form onSubmit={eventSubmit} class="card-body">
@@ -144,7 +144,7 @@ const Signup = () => {
                             <label className={`ps-2 ${agree ? 'text-success' : 'text-danger'}`} htmlFor='terms'>Accepct terms and conditions</label>
                             <input className='btn btn-primary' type="submit" required value="Signup" />
                             <p className='my-3 fs-5 d-flex'>
-                                Already have an account? <Link className='form-link' to='/login'>Login</Link>
+                                Already have an account? <Link className='form-link' to='/login'><span className='text-primary'>Login</span></Link>
                             </p>
                         </form>
                         <h6 className="text-danger my-3"> {errorMsg}</h6>

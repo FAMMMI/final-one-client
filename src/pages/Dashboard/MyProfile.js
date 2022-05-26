@@ -54,7 +54,7 @@ const MyProfile = () => {
                 if (result.success) {
                     const img = result.data.url;
                     const updatedUser = {
-                        name: newUser[0]?.name,
+                        name: data.name,
                         email: newUser[0]?.email,
                         address: data.address,
                         phone: data.phone,
@@ -94,7 +94,11 @@ const MyProfile = () => {
 
     return (
         <div className=' min-h-screen '>
-            <div className="grid grid-cols-2 align-center my-8 justify-around">
+            <div class="left-add">
+                <div class="text-primary text-2xl font-bold ">Update Profile</div>
+
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 align-center gap-4 my-8 justify-around">
                 <div class="card w-96 mx-auto bg-base-100 shadow-xl">
                     <figure class="px-10 pt-10">
                         <img src={newUser[0]?.img} alt="Shoes" class="rounded-xl" />
@@ -108,81 +112,98 @@ const MyProfile = () => {
 
                     </div>
                 </div>
-                <div class="page-add">
-                    <div class="container-add">
-                        <div class="left-add">
-                            <div class="login">Update Profile</div>
 
+
+
+                <div class="right-add flex align-center justify-center ">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+
+                        <div className="input-group w-75 mx-auto form-control">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input
+                                type="text"
+                                placeholder="Your Name"
+                                min={1}
+                                className="input input-bordered w-full max-w-xs"
+                                {...register("name", {
+                                    required: {
+                                        value: true,
+                                        message: 'Name is Required'
+                                    }
+                                })}
+                            />
+                            <label className="label">
+                                {errors.name?.type === 'required' && <span className="label-text-alt text-red-500">{errors.name.message}</span>}
+                            </label>
                         </div>
 
-                        <div class="right-add flex align-center justify-center">
-                            <form onSubmit={handleSubmit(onSubmit)}>
-
-                                <div className="input-group w-75 mx-auto form-control">
-                                    <label className="label">
-                                        <span className="label-text">Phone</span>
-                                    </label>
-                                    <input
-                                        type="number"
-                                        placeholder="Your Phone Number"
-                                        className="input input-bordered w-full max-w-xs"
-                                        {...register("phone", {
-                                            required: {
-                                                value: true,
-                                                message: 'Phone is Required'
-                                            }
-                                        })}
-                                    />
-                                    <label className="label">
-                                        {errors.phone?.type === 'required' && <span className="label-text-alt text-red-500">{errors.phone.message}</span>}
-                                    </label>
-                                </div>
-
-                                <div className="input-group w-75 mx-auto form-control">
-                                    <label className="label">
-                                        <span className="label-text">Address</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        placeholder="Your Address"
-                                        min={1}
-                                        className="input input-bordered w-full max-w-xs"
-                                        {...register("address", {
-                                            required: {
-                                                value: true,
-                                                message: 'Address is Required'
-                                            }
-                                        })}
-                                    />
-                                    <label className="label">
-                                        {errors.address?.type === 'required' && <span className="label-text-alt text-red-500">{errors.address.message}</span>}
-                                    </label>
-                                </div>
-
-                                <div className="input-group w-75 mx-auto form-control">
-                                    <label className="label">
-                                        <span className="label-text">Photo</span>
-                                    </label>
-                                    <input
-                                        type="file"
-                                        className="input  w-full max-w-xs"
-                                        {...register("image", {
-                                            required: {
-                                                value: true,
-                                                message: ' '
-                                            }
-                                        })}
-                                    />
-                                    <label className="label">
-                                        {errors.file?.type === 'required' && <span className="label-text-alt text-red-500">{errors.file.message}</span>}
-                                    </label>
-                                </div>
-
-                                <input className='btn btn-primary text-white' type="submit" value="Update" />
-                            </form>
+                        <div className="input-group w-75 mx-auto form-control">
+                            <label className="label">
+                                <span className="label-text">Phone</span>
+                            </label>
+                            <input
+                                type="number"
+                                placeholder="Your Phone Number"
+                                className="input input-bordered w-full max-w-xs"
+                                {...register("phone", {
+                                    required: {
+                                        value: true,
+                                        message: 'Phone is Required'
+                                    }
+                                })}
+                            />
+                            <label className="label">
+                                {errors.phone?.type === 'required' && <span className="label-text-alt text-red-500">{errors.phone.message}</span>}
+                            </label>
                         </div>
-                    </div>
+
+                        <div className="input-group w-75 mx-auto form-control">
+                            <label className="label">
+                                <span className="label-text">Address</span>
+                            </label>
+                            <input
+                                type="text"
+                                placeholder="Your Address"
+                                min={1}
+                                className="input input-bordered w-full max-w-xs"
+                                {...register("address", {
+                                    required: {
+                                        value: true,
+                                        message: 'Address is Required'
+                                    }
+                                })}
+                            />
+                            <label className="label">
+                                {errors.address?.type === 'required' && <span className="label-text-alt text-red-500">{errors.address.message}</span>}
+                            </label>
+                        </div>
+
+                        <div className="input-group w-75 mx-auto form-control">
+                            <label className="label">
+                                <span className="label-text">Photo</span>
+                            </label>
+                            <input
+                                type="file"
+                                className="input  w-full max-w-xs"
+                                {...register("image", {
+                                    required: {
+                                        value: true,
+                                        message: ' '
+                                    }
+                                })}
+                            />
+                            <label className="label">
+                                {errors.file?.type === 'required' && <span className="label-text-alt text-red-500">{errors.file.message}</span>}
+                            </label>
+                        </div>
+
+                        <input className='btn btn-primary text-white' type="submit" value="Update" />
+                    </form>
                 </div>
+
+
             </div>
         </div>
     );
