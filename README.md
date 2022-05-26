@@ -11,6 +11,7 @@ Server site github link : [https://github.com/programming-hero-web-course1/manuf
 For testing purpose :
 
 admin: fami@def.com
+##
 password: 123456
 
 ## Website functionalities description 
