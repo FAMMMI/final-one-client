@@ -1,7 +1,7 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const DeleteIndividualItem = ({ deleteItem, setDeleteItem }) => {
+const DeleteIndividualItem = ({ deleteItem, setDeleteItem,refetch }) => {
 
     const { _id, name, price, quantity } = deleteItem;
 
@@ -16,6 +16,7 @@ const DeleteIndividualItem = ({ deleteItem, setDeleteItem }) => {
                 if (data.deletedCount) {
                     toast.success('Successfully Deleted');
                     setDeleteItem(null);
+                    refetch();
                 }
             })
     }

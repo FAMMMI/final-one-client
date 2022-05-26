@@ -3,18 +3,33 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import DeleteOrder from './DeleteOrder';
 import SingleProduct from './SingleProduct';
+import { useQuery } from 'react-query';
+import Loading from '../Shared/Loading'
 
 
 const MyOrders = () => {
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
     const [user] = useAuthState(auth);
-    const [deleteOrder, setdeleteOrder] = useState();
+    const [deleteOrder, setdeleteOrder] = useState(null);
 
-    useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`)
-            .then(res => res.json())
-            .then(data => setProducts(data));
-    }, [user])
+    // useEffect(() => {
+    //     fetch(`http://localhost:5000/orders?email=${user?.email}`)
+    //         .then(res => res.json())
+    //         .then(data => setProducts(data));
+    // }, [user])
+
+    const {data :products, isLoading,refetch} =useQuery('orders',()=>fetch(`http://localhost:5000/orders?email=${user?.email}`,
+    {
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    })
+    .then(res => res.json())
+    );
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
 
 
 
@@ -38,8 +53,10 @@ const MyOrders = () => {
                         {
                             products.map((product, index) => <SingleProduct key={product._id}
                                 index={index}
-                                product={product} products={products} setProducts={setProducts}
+                                product={product} products={products} 
+                                // setProducts={setProducts}
                                 setdeleteOrder={setdeleteOrder}
+                                refetch={refetch}
                             >
                             </SingleProduct>)
                         }
@@ -48,9 +65,10 @@ const MyOrders = () => {
                 {
                     deleteOrder && <DeleteOrder
                         products={products}
-                        setProducts={setProducts}
+                        // setProducts={setProducts}
                         deleteOrder={deleteOrder}
                         setdeleteOrder={setdeleteOrder}
+                        refetch={refetch}
                     ></DeleteOrder>
                 }
             </div>

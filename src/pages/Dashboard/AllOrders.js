@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import DeleteOrdersForAdmin from './DeleteOrdersForAdmin';
 import ManageIndividualOrders from './ManageIndividualOrders';
+import Loading from '../Shared/Loading';
+import { useQuery } from 'react-query';
 
 const AllOrders = () => {
     const [deleteOrders, setDeleteOrders] = useState(null);
 
-    const [orders, setOrders] = useState([]);
-    useEffect(() => {
-        fetch('http://localhost:5000/orders')
-            .then(res => res.json())
-            .then(data => setOrders(data));
-    }, [])
+    // const [orders, setOrders] = useState([]);
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/orders')
+    //         .then(res => res.json())
+    //         .then(data => setOrders(data));
+    // }, [])
+
+    const { data: orders, isLoading, refetch } = useQuery('orders', () => fetch('http://localhost:5000/orders', {
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+
+    })
+        .then(res => res.json())
+    );
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
     return (
         <div className=''>
             <h2>All Orders</h2>
@@ -34,8 +49,10 @@ const AllOrders = () => {
                             orders.map((order, index) => <ManageIndividualOrders key={order._id}
                                 index={index}
                                 order={order}
-                                orders={orders} setOrders={setOrders}
-                                setDeleteOrders={setDeleteOrders}></ManageIndividualOrders>)
+                                // orders={orders} setOrders={setOrders}
+                                setDeleteOrders={setDeleteOrders}
+                                refetch={refetch}
+                                ></ManageIndividualOrders>)
                         }
                     </tbody>
                 </table>
@@ -44,7 +61,7 @@ const AllOrders = () => {
                 deleteOrders && <DeleteOrdersForAdmin
                     deleteOrders={deleteOrders}
                     setDeleteOrders={setDeleteOrders}
-
+                    refetch={refetch}
                 ></DeleteOrdersForAdmin>
 
             }

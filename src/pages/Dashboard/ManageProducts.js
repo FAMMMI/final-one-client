@@ -1,22 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import DeleteIndividualItem from './DeleteIndividualItem';
 import ManageIndividualProduct from './ManageIndividualProduct';
+import { useQuery } from 'react-query';
+import Loading from '../Shared/Loading';
 
 
 
 const ManageProducts = () => {
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
     const [deleteItem, setDeleteItem] = useState(null);
-    useEffect(() => {
-        fetch(`http://localhost:5000/products`, {
-            method: 'GET',
-            headers: {
-                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => setProducts(data))
-    }, [])
+    // useEffect(() => {
+    //     fetch(`http://localhost:5000/products`, {
+    //         method: 'GET',
+    //         headers: {
+    //             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    //         }
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => setProducts(data))
+    // }, [])
+
+    const { data: products, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/products', {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }).then(res => res.json()))
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
     console.log(products);
     return (
         <div >
@@ -42,8 +56,10 @@ const ManageProducts = () => {
                                 product={product}
                                 index={index}
                                 setDeleteItem={setDeleteItem}
-                                products={products}
-                                setProducts={setProducts}>
+                                // products={products}
+                                // setProducts={setProducts}
+                                refetch={refetch}
+                                >
 
                             </ManageIndividualProduct>)
                         }
@@ -53,7 +69,7 @@ const ManageProducts = () => {
                     deleteItem && <DeleteIndividualItem
                         deleteItem={deleteItem}
                         setDeleteItem={setDeleteItem}
-
+                        refetch={refetch}
                     ></DeleteIndividualItem>
 
                 }
