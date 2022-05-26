@@ -16,7 +16,7 @@ const MyProfile = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users?email=${user?.email}`, {
+        fetch(`https://stark-oasis-86458.herokuapp.com/users?email=${user?.email}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -63,7 +63,7 @@ const MyProfile = () => {
                         role: newUser[0]?.role
                     }
                     console.log(updatedUser);
-                    fetch(`http://localhost:5000/users?id=${newUser[0]?._id}`, {
+                    fetch(`https://stark-oasis-86458.herokuapp.com/users?id=${newUser[0]?._id}`, {
                         method: 'PUT',
                         headers: {
                             'content-type': 'application/json',
@@ -74,7 +74,7 @@ const MyProfile = () => {
                         .then(res => res.json())
                         .then(data => {
                             toast.success(`${updatedUser?.name} profile has been updated`);
-                            fetch(`http://localhost:5000/users?email=${user?.email}`, {
+                            fetch(`https://stark-oasis-86458.herokuapp.com/users?email=${user?.email}`, {
                                 method: 'GET',
                                 headers: {
                                     'content-type': 'application/json',

@@ -9,12 +9,12 @@ const AllOrders = () => {
 
     // const [orders, setOrders] = useState([]);
     // useEffect(() => {
-    //     fetch('http://localhost:5000/orders')
+    //     fetch('https://stark-oasis-86458.herokuapp.com/orders')
     //         .then(res => res.json())
     //         .then(data => setOrders(data));
     // }, [])
 
-    const { data: orders, setOrders, isLoading, refetch } = useQuery('orders', () => fetch('http://localhost:5000/orders', {
+    const { data: orders, setOrders, isLoading, refetch } = useQuery('orders', () => fetch('https://stark-oasis-86458.herokuapp.com/orders', {
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
@@ -28,7 +28,7 @@ const AllOrders = () => {
 
     return (
         <div className=''>
-            <h2>All Orders</h2>
+            <h2 className='text-2xl text-primary font-bold my-4'>All Orders</h2>
             <div class="overflow-x-auto">
                 <table class="table  table-zebra w-full">
                     <thead>

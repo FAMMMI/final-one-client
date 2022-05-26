@@ -28,7 +28,7 @@ const Login = () => {
     const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users?email=${user?.email}`, {
+        fetch(`https://stark-oasis-86458.herokuapp.com/users?email=${user?.email}`, {
             method: 'GET',
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`

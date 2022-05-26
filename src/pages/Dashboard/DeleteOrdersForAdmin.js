@@ -1,11 +1,11 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const DeleteOrdersForAdmin = ({ deleteOrders, setDeleteOrders,refetch }) => {
+const DeleteOrdersForAdmin = ({ deleteOrders, setDeleteOrders, refetch }) => {
     const { _id, name, userName, totalPrice, quantity } = deleteOrders;
 
     const deleteProduct = () => {
-        const url = `http://localhost:5000/orders?id=${_id}`;
+        const url = `https://stark-oasis-86458.herokuapp.com/orders?id=${_id}`;
         fetch(url, {
             method: 'DELETE'
         })
@@ -29,7 +29,7 @@ const DeleteOrdersForAdmin = ({ deleteOrders, setDeleteOrders,refetch }) => {
                     <p class="py-4"><b>Quantity:</b>{quantity}</p>
                     <p class="py-4"><b>Price:</b>{totalPrice}</p>
                     <div class="my-modal-6">
-                        <button onClick={() => deleteProduct()} class="btn btn-xs btn-error">Delete</button>
+                        <button onClick={() => deleteProduct()} class="btn btn-xs btn-error mr-4">Delete</button>
                         <label for="my-modal-6" class="btn btn-xs">Cancel</label>
                     </div>
                 </div>

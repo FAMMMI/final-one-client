@@ -58,9 +58,15 @@ function App() {
             <AllOrders></AllOrders>
           </RequireAdmin>}></Route>
           <Route path='payment/:id' element={<Payment></Payment>}></Route>
-          <Route path='addProduct' element={<AddProducts></AddProducts>}></Route>
-          <Route path='manageProducts' element={<ManageProducts></ManageProducts>}></Route>
-          <Route path='users' element={<Users></Users>}></Route>
+          <Route path='addProduct' element={<RequireAdmin>
+            <AddProducts></AddProducts>
+          </RequireAdmin>}></Route>
+          <Route path='manageProducts' element={<RequireAdmin>
+            <ManageProducts></ManageProducts>
+          </RequireAdmin>}></Route>
+          <Route path='users' element={<RequireAdmin>
+            <Users></Users>
+          </RequireAdmin>}></Route>
 
         </Route>
 

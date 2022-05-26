@@ -6,7 +6,7 @@ const AvailableProducts = () => {
     const [product, setProduct] = useState(null);
     const [availableProducts, setavailableProducts] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:5000/products", {
+        fetch("https://stark-oasis-86458.herokuapp.com/products", {
             method: 'GET',
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`

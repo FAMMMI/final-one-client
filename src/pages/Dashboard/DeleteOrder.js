@@ -1,12 +1,12 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const DeleteOrder = ({ deleteOrder, setdeleteOrder, products, setProducts,refetch }) => {
+const DeleteOrder = ({ deleteOrder, setdeleteOrder, products, setProducts, refetch }) => {
 
     const { _id, name, description, price, quantity } = deleteOrder;
 
     const handleDelete = () => {
-        const url = `http://localhost:5000/orders?id=${_id}`;
+        const url = `https://stark-oasis-86458.herokuapp.com/orders?id=${_id}`;
         fetch(url, {
             method: 'DELETE'
         })

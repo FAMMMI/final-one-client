@@ -40,7 +40,7 @@ const AddProducts = () => {
                         img: img
                     }
                     console.log(products);
-                    fetch(`http://localhost:5000/products?productname=${data.name}`, {
+                    fetch(`https://stark-oasis-86458.herokuapp.com/products?productname=${data.name}`, {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
@@ -72,7 +72,7 @@ const AddProducts = () => {
             <div class="">
                 <div class="container-add">
                     <div class="left-add">
-                        <div class="text-2xl font-bold text-accent m-3">Add Products</div>
+                        <div class="text-2xl font-bold text-primary m-3">Add Products</div>
                     </div>
 
                     <div class=" grid align-center justify-center mx-auto my-4">

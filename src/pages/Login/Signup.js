@@ -79,7 +79,7 @@ const Signup = () => {
             password: password
         }
 
-        fetch('http://localhost:5000/users', {
+        fetch('https://stark-oasis-86458.herokuapp.com/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
