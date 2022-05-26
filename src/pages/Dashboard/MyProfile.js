@@ -101,7 +101,7 @@ const MyProfile = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 align-center gap-4 my-8 justify-around">
                 <div class="card w-96 mx-auto bg-base-100 shadow-xl">
                     <figure class="px-10 pt-10">
-                        <img src={newUser[0]?.img} alt="Shoes" class="rounded-xl" />
+                        <img src={newUser[0]?.img} alt="" class="rounded-xl" />
                     </figure>
                     <div class="card-body items-center text-center">
                         <h2 class="card-title">Name: {newUser[0]?.name}</h2>
