@@ -63,19 +63,15 @@ const Purchase = () => {
             return toast.error('Empty Quantity');
         }
 
-        console.log(prevQuantity, newQuantity);
-
         if (newQuantity > prevQuantity) {
-            return toast.error('Quantity Excedded');
+            return toast.error('Product cannot be purchased for product shortage');
         }
 
         if (newQuantity < minimumQuantity) {
             return toast.error('Minimum Quantity Required');
         }
 
-        if (prevQuantity < minimumQuantity) {
-            return toast.error('Product cannot be purchased for product shortage')
-        }
+
 
 
 
