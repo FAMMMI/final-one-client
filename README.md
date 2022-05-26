@@ -1,6 +1,17 @@
 # [BNB MOTORPARTS](https://assignment-12-5df58.web.app/)
 
-Lvesite Link : [BNB MOTORPARTS](https://assignment-12-5df58.web.app/).
+Livesite Link : [BNB MOTORPARTS](https://assignment-12-5df58.web.app/).
+
+Client site github link : [https://github.com/programming-hero-web-course1/manufacturer-website-client-side-FAMMMI]
+
+Server site github link : [https://github.com/programming-hero-web-course1/manufacturer-website-server-side-FAMMMI]
+
+
+
+For testing purpose :
+
+admin: fami@def.com
+password: 123456
 
 ## Website functionalities description 
 

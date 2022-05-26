@@ -74,11 +74,11 @@ const AddReviews = () => {
 
                             <div className="input-group w-100 mx-auto px-2 form-control">
                                 <label className="label">
-                                    <span className="label-text">Give star</span>
+                                    <span className="label-text">Give Ratings</span>
                                 </label>
                                 <input
                                     type="number"
-                                    placeholder="Give review from 1-5"
+                                    placeholder="Give ratings from 1-5"
                                     className="input input-bordered w-full max-w-xs"
                                     min={1}
                                     max={5}

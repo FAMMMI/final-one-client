@@ -73,6 +73,10 @@ const Purchase = () => {
             return toast.error('Minimum Quantity Required');
         }
 
+        if (prevQuantity < minimumQuantity) {
+            return toast.error('Product cannot be purchased for product shortage')
+        }
+
 
 
         const product = {
