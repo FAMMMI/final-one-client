@@ -17,16 +17,15 @@ password: 123456
 ## Website functionalities description 
 
 In the website , you can run:
-
- * User can buy a product and pay for that using cards.
- * User can review for products and reviews will be shown in home page .
- * User can sign up using gmail or create account using email and password .
+ * User and admin section added
+ * Payment system added using cards.
+ * User review system added.
+ * Sign up and sign in added with email id and gmail .
  * User can see the state of their products and also their transaction id  .
  * User can update their profile as well as admin .
  * Admin can add product , update a product , delete product .
  * They can see all orders and state of the order whether paid or not .
  * An admin can make a user admin and also can remove him from admin .
- * Admin can update their profile .
  
 ## Technology used
 
